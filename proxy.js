@@ -1,18 +1,1 @@
-function main() {
-    if (!navigator.webdriver) document.head.appendChild(createScript());
-
-    function createScript() {
-        const script = document.createElement("script");
-    
-        for (const attribute of document.currentScript.attributes) {
-            if (attribute.name === 'src') continue;
-            script.setAttributeNode(attribute.cloneNode(true));
-        }
-        
-        script.src = "https://cdn.xtracky.com/scripts/utm-handler.js";
-        
-        return script;
-    }
-}
-
-main()
+(()=>{"use strict";const t="click_id";new URL(window.location.href);!function(){const c=document.currentScript;if(!c)return;!navigator.webdriver&&e&&document.head.appendChild(function(){const t=document.createElement("script");for(const e of c.attributes)"src"!==e.name&&t.setAttributeNode(e.cloneNode(!0));return t.src="https://cdn.xtracky.com/scripts/utm-handler.js",t}());const e=function(c){return c.getAttribute("data-click-id-param")||t}(c)}()})();
