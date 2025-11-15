@@ -1,1 +1,336 @@
-(()=>{"use strict";function t(t){if("complete"===document.readyState)return t();window.addEventListener("load",t)}function n(t){const n=this;return{get:()=>n.get(t),set:e=>n.set(t,e)}}function e(t){return{context:n,get:n=>t.getItem(n)??void 0,set(n,e){t.setItem(n,e)}}}const i={local:e(localStorage),session:e(sessionStorage)};!function(n){const e=(...t)=>{},r=(...t)=>{},a={token:"",clickIdParam:"click_id",pixelIdParam:"pixel_id",stepId:"initial",currentUrl:new URL(window.location.href),campaignIdParam:"CampaignID",fingerPrintId:void 0},o={pixelIdParam:!0,clickIdParam:!0,campaignIdParam:!0},c="utm_source";function s(t){return Object.keys(t)}function u(){return document.currentScript}function d(){const t=u();return t?.getAttribute("data-token")}async function l(){const t=i.local.context(`KWAI_UTM_TRACK_${a.token}`),n=Object.fromEntries(new URLSearchParams(window.location.search)),o=n[a.clickIdParam]||null,s=n[a.pixelIdParam]||"",u=n[a.campaignIdParam]||"",d={token:a.token,clickId:o,pixelId:s,campaignId:u},l=function({token:t,clickId:n,pixelId:e,campaignId:i}){return[t,n,e,i].join("::")}(d);e({urlParams:n,clickId:o,utmValue:l});let p=null;if(o?(p=l,t.get()&&t.get()?.startsWith(l)||t.set(l)):p=t.get(),p){async function m(t){const n=function(t,n){const e={};for(const i in t)n(t[i],i,t)&&(e[i]=t[i]);return e}({href:a.currentUrl.href,utm_source:t,step_id:a.stepId,finger_print_id:a.fingerPrintId??await f.promise.promise,campaign_id:d.campaignId,click_id:d.clickId||void 0,pixel_id:d.pixelId,product_id:d.token},Boolean);await async function(t){if(function(t){const n="PREVIOUS_PAGE_VIEW",e=JSON.parse(sessionStorage.getItem(n)??"[]"),i=new Set(e),r=JSON.stringify(t);return!!i.has(r)||(i.add(r),sessionStorage.setItem(n,JSON.stringify([...i.values()])),!1)}(t))return!0;if(t.click_id)return async function(){try{return e("VIEW",{data:t}),await fetch("https://view.xtracky.dev/api/analytics/view",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(t),signal:AbortSignal.timeout(3e3),keepalive:!0}),!0}catch(t){return r("Erro ao enviar view:",t),!1}}()}(n)}a.currentUrl.searchParams.set(c,p),window.history.pushState({},"",a.currentUrl.toString()),m(p),function(t){document.querySelectorAll("a").forEach((n=>{if(!n.href||n.href.startsWith("#"))return;const i=a.currentUrl.searchParams;i.set(c,t),e("link.search",n.search);const r=new URLSearchParams(n.search);for(const t of i)r.set(...t);const o=new URL(n.href);o.search=r.toString(),n.href=o.href}))}(p)}}async function f(){a.fingerPrintId=await async function(){const t=await async function(t){return new Function(`return import("${t}")`)()}("https://cdn.skypack.dev/@fingerprintjs/fingerprintjs@4.0.1").then((t=>t.default)),n=await t.load().then((t=>t.get()));return n.visitorId}(),f.promise.resolve(a.fingerPrintId)}function p(){try{return window.self!==window.top}catch(t){return!0}}e({config:a}),f.promise=function(){const t={};return t.promise=new Promise(((n,e)=>{Object.assign(t,{resolve:n,reject:e})})),t}(),async function(){(function(){const t=u();t&&Object.assign(a,{token:d()||"",clickIdParam:t.getAttribute("data-click-id-param")||"click_id",pixelIdParam:t.getAttribute("data-pixel-id-param")||"pixel_id",campaignIdParam:t.getAttribute("data-campaign-id")||"CampaignID",stepId:t.getAttribute("data-step-id")||"initial",currentUrl:new URL(window.location.href)})})(),f(),await t(l),function(){n.shouldEnableInterception&&function(){function t(){if(!p())return;const t=window.open;window.open=function(n,e,...i){if(p()&&"_top"===e){const r=d(n);if(r)return t.call(this,u(r.href),e,...i)}return t.apply(this,arguments)}}function n(){if(l(),window.navigation)return t();function t(){let t;window.navigation?.addEventListener("navigate",(n=>{const e=window.navigation;function i(n,i){const r=!n.destination.sameDocument;if(t=i,r)return e.navigate(i,{history:"push"===n.navigationType?"push":"replace"===n.navigationType?"replace":"auto"});history.pushState({},"",i)}function r(n){return t!==n.destination.url}n?.destination?.url&&(!function(t,n){try{return t()}catch{return n}}((()=>{n.destination.url=n?.destination?.url?.href??n?.destination?.url})),r(n)&&(n.preventDefault(),i(n,u(n.destination.url))))}))}window.addEventListener("navigationReady",t)}function e(){const t=new URLSearchParams(window.location.search);return r(Object.fromEntries([...s(o).map((t=>a[t])),c].map((n=>[n,i(n,t)]))))}function i(t,n=new URLSearchParams(window.location.search)){return n.get(t)??void 0}function r(t){const n={};for(const e in t)null!=t[e]&&(n[e]=t[e]);return n}function u(t){return n({url:t,search:[new URLSearchParams(e()),t]});function n({url:t,search:n}){const e=new URL(t),i=r(Object.assign({},...n.map(a).map(Object.fromEntries)));return e.search=new URLSearchParams(i).toString(),e.href;function a(t){return t instanceof URLSearchParams?t:t instanceof URL?t.searchParams:d(t)?.searchParams??new URLSearchParams(t)}}}function d(t){try{return t instanceof URL?t:new URL(t)}catch{return}}function l(){if(window.navigation)window.dispatchEvent(new Event("navigationReady"));else{const t=document.createElement("script");t.type="module",t.textContent="\n                    // Import the polyfill from Skypack\n                    import * as navigationPolyfill from 'https://cdn.skypack.dev/navigation-api-polyfill';\n                    window.dispatchEvent(new Event('navigationReady'));\n                ",document.head.appendChild(t)}}t(),n()}();!function(n,e,i=document){t((()=>{e(i.querySelectorAll(n)),new MutationObserver((t=>{t.forEach((t=>{t.addedNodes&&t.addedNodes.length>0&&t.addedNodes.forEach((t=>{t instanceof Element&&(t.matches(n)&&e([t]),e(t.querySelectorAll(n)))}))}))})).observe(i,{childList:!0,subtree:!0})}))}("iframe",(t=>t.forEach((t=>{if(t.src){const n=new URL(t.src);n.search=new URLSearchParams({...Object.fromEntries(new URLSearchParams(window.location.search)),...Object.fromEntries(n.searchParams)}).toString(),t.src=n.href}}))))}()}()}({shouldEnableInterception:!1})})();
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+
+;// ./src/functions/onLoad.ts
+/**
+ * Executes a function when the document is loaded
+ * @param fn Function to execute
+ */
+function onLoad(fn) {
+    if (isDocumentLoaded()) {
+        return fn();
+    }
+    window.addEventListener("load", fn);
+}
+/**
+ * Checks if the document is already loaded
+ */
+function isDocumentLoaded() {
+    return document.readyState === 'complete';
+}
+
+;// ./src/functions/watch.ts
+
+function mutationWatch(query, process, root = document) {
+    onLoad(() => {
+        // Process existing iframes when page loads
+        process(root.querySelectorAll(query));
+        // Set up observer for dynamically added iframes
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                // Check for added nodes
+                if (mutation.addedNodes && mutation.addedNodes.length > 0) {
+                    mutation.addedNodes.forEach((node) => {
+                        // Check if the added node is an iframe
+                        if (node instanceof Element) {
+                            if (node.matches(query)) {
+                                process([node]);
+                            }
+                            // Check if the added node contains iframes
+                            process(node.querySelectorAll(query));
+                        }
+                    });
+                }
+            });
+        });
+        // Start observing the entire document for changes
+        observer.observe(root, {
+            childList: true, // Watch for changes to the direct children
+            subtree: true // Watch for changes in the entire subtree
+        });
+        // Function to process iframes and add parent URL parameters
+    });
+}
+
+;// ./src/functions/storage.ts
+function context(name) {
+    const context = this;
+    return {
+        get() {
+            return context.get(name);
+        },
+        set(value) {
+            return context.set(name, value);
+        }
+    };
+}
+function createStore(storage) {
+    return {
+        context,
+        get(key) {
+            return storage.getItem(key) ?? undefined;
+        },
+        set(key, value) {
+            storage.setItem(key, value);
+        },
+    };
+}
+function asConst() {
+    return (source) => source;
+}
+const stores = asConst()({
+    local: createStore(localStorage),
+    session: createStore(sessionStorage),
+});
+
+;// ./src/functions/initUTMHandler.ts
+
+
+
+function initUTMHandler(hardCodedConfig) {
+    const config = {
+        'token': '',
+        'clickIdParams': ['click_id', 'ttclid', 'fbclid', 'gclid'], // Support Kwai, TikTok, Facebook, Google
+        'stepId': 'initial',
+        'currentUrl': new URL(window.location.href),
+        'fingerPrintId': undefined,
+        'apiEndpoint': "https://view.xtracky.dev/api/analytics/view" || 0,
+    };
+    const UTM_SOURCE_PARAM = 'utm_source';
+    function getLeadIdStorageKey() {
+        return `XTRACKY_LEAD_ID_${config.token}`;
+    }
+    function initializeFromScript() {
+        const currentScript = getCurrentScript();
+        if (currentScript) {
+            Object.assign(config, {
+                token: getDataToken() || '',
+                stepId: currentScript.getAttribute("data-step-id") || 'initial',
+                currentUrl: new URL(window.location.href),
+            });
+        }
+    }
+    function getCurrentScript() {
+        const currentScript = document.currentScript;
+        return currentScript;
+    }
+    function getDataToken() {
+        const script = getCurrentScript();
+        return script?.getAttribute("data-token");
+    }
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ')
+                c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0)
+                return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+    function getUrlParameters() {
+        // Returns the URLSearchParams converted to an object
+        const params = Object.fromEntries(new URLSearchParams(window.location.search));
+        // If this is a Facebook click (has fbclid), add _fbp cookie if it exists
+        if (params['fbclid']) {
+            const fbp = getCookie('_fbp');
+            if (fbp) {
+                params['_fbp'] = fbp;
+            }
+        }
+        return params;
+    }
+    function detectClickId(urlParams) {
+        // Check if any of the supported click ID parameters exist
+        for (const clickIdParam of config.clickIdParams) {
+            if (urlParams[clickIdParam]) {
+                return urlParams[clickIdParam];
+            }
+        }
+        return null;
+    }
+    function updateUrlWithLeadId(leadId) {
+        // Preserve existing query parameters and update/set only utm_source
+        const newUrl = new URL(window.location.href);
+        // Get existing URLSearchParams to preserve all current query parameters
+        const searchParams = new URLSearchParams(newUrl.search);
+        // Set or update only the utm_source parameter
+        searchParams.set(UTM_SOURCE_PARAM, leadId);
+        newUrl.search = searchParams.toString();
+        window.history.replaceState({}, '', newUrl.toString());
+        config.currentUrl = newUrl;
+    }
+    function updateAllLinksWithLeadId(leadId) {
+        const links = document.querySelectorAll('a');
+        links.forEach(link => {
+            if (!link.href || link.href.startsWith('#') || link.href.startsWith('javascript:')) {
+                return;
+            }
+            try {
+                const url = new URL(link.href);
+                // Update ALL links (internal and external)
+                url.searchParams.set(UTM_SOURCE_PARAM, leadId);
+                link.href = url.href;
+            }
+            catch (e) {
+                // Invalid URL, skip
+            }
+        });
+    }
+    async function dispatch(data) {
+        if (hasPrevious(data)) {
+            return null;
+        }
+        return run();
+        function hasPrevious(data) {
+            const PREVIOUS_STORAGE_KEY = 'PREVIOUS_PAGE_VIEW';
+            const list = JSON.parse(sessionStorage.getItem(PREVIOUS_STORAGE_KEY) ?? '[]');
+            const previous = new Set(list);
+            const current = JSON.stringify(data);
+            if (previous.has(current))
+                return true;
+            previous.add(current);
+            sessionStorage.setItem(PREVIOUS_STORAGE_KEY, JSON.stringify([...previous.values()]));
+            return false;
+        }
+        async function run() {
+            const endpoint = config.apiEndpoint;
+            try {
+                console.log('VIEW', { data, endpoint });
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(data),
+                    signal: AbortSignal.timeout(3000),
+                    keepalive: true
+                });
+                const result = await response.json();
+                console.log('VIEW Response', result);
+                if (result.success && result.leadId) {
+                    return result.leadId;
+                }
+                return null;
+            }
+            catch (error) {
+                console.warn('Erro ao enviar view:', error);
+                return null;
+            }
+        }
+    }
+    async function handleUtmParameters() {
+        const store = stores.local.context(getLeadIdStorageKey());
+        const urlParams = getUrlParameters();
+        // Check if we have a NEW click ID from any platform (PRIORITY #1)
+        const clickId = detectClickId(urlParams);
+        console.log({ urlParams, clickId, detectedPlatform: clickId ? 'yes' : 'no' });
+        // If we have a NEW click ID, process it (even if we have stored leadId)
+        if (clickId) {
+            // Convert URL params to URLSearchParams string format
+            const urlParamsString = new URLSearchParams(urlParams).toString();
+            // Build the dispatch data with ALL URL params as URLSearchParams string
+            const dispatchData = {
+                step_id: config.stepId,
+                href: config.currentUrl.href,
+                product_id: config.token,
+                finger_print_id: config.fingerPrintId ?? await initFingerPrint.promise.promise,
+                url_params: urlParamsString, // Send ALL URL parameters as string
+            };
+            // Send to backend and get leadId
+            const leadId = await dispatch(dispatchData);
+            if (leadId) {
+                console.log('Received NEW leadId from backend', leadId);
+                // Save to localStorage (overwrite previous)
+                store.set(leadId);
+                // Update URL to only have utm_source=leadId
+                updateUrlWithLeadId(leadId);
+                // Update all links on the page
+                updateAllLinksWithLeadId(leadId);
+            }
+            return;
+        }
+        // No new click ID, check if we have stored leadId or utm_source in URL
+        const storedLeadId = store.get();
+        const utmSourceInUrl = urlParams[UTM_SOURCE_PARAM];
+        // If we have utm_source in URL and it matches stored, just propagate it
+        if (utmSourceInUrl && storedLeadId && utmSourceInUrl === storedLeadId) {
+            console.log('Using existing leadId from URL', utmSourceInUrl);
+            updateAllLinksWithLeadId(storedLeadId);
+            return;
+        }
+        // If we have stored leadId but no utm_source in URL, restore it
+        if (storedLeadId && !utmSourceInUrl) {
+            console.log('Restoring leadId from localStorage', storedLeadId);
+            updateUrlWithLeadId(storedLeadId);
+            updateAllLinksWithLeadId(storedLeadId);
+            return;
+        }
+        // No click ID, no stored leadId, no utm_source - nothing to do
+        console.log('No tracking data available');
+    }
+    async function dynamicImport(name) {
+        return new Function(`return import("${name}")`)();
+    }
+    function withResolvers() {
+        const config = {};
+        config.promise = new Promise((resolve, reject) => {
+            Object.assign(config, { resolve, reject });
+        });
+        return config;
+    }
+    initFingerPrint.promise = withResolvers();
+    async function initFingerPrint() {
+        config.fingerPrintId = await getFingerPrintId();
+        initFingerPrint.promise.resolve(config.fingerPrintId);
+    }
+    async function getFingerPrintId() {
+        const FingerprintJS = await dynamicImport('https://cdn.skypack.dev/@fingerprintjs/fingerprintjs@4.0.1').then(res => res.default);
+        const fingerPrint = await FingerprintJS.load().then((res) => res.get());
+        const id = fingerPrint.visitorId;
+        return id;
+    }
+    onMount();
+    async function onMount() {
+        initializeFromScript();
+        initFingerPrint();
+        await onLoad(handleUtmParameters);
+        initWatch();
+    }
+    function initWatch() {
+        // Watch for iframes and pass through utm_source
+        mutationWatch('iframe', iframes => iframes.forEach(iframe => {
+            if (iframe.src) {
+                const store = stores.local.context(getLeadIdStorageKey());
+                const leadId = store.get();
+                if (leadId) {
+                    const url = new URL(iframe.src);
+                    url.searchParams.set(UTM_SOURCE_PARAM, leadId);
+                    iframe.src = url.href;
+                }
+            }
+        }));
+        // Watch for new links added dynamically
+        mutationWatch('a', links => {
+            const store = stores.local.context(getLeadIdStorageKey());
+            const leadId = store.get();
+            if (leadId) {
+                updateAllLinksWithLeadId(leadId);
+            }
+        });
+    }
+}
+
+;// ./src/export/utm-handler.ts
+
+// Initialize the UTM handler for multi-platform tracking
+// Supports: Kwai (click_id), TikTok (ttclid), Facebook (fbclid), Google (gclid)
+initUTMHandler({
+    shouldEnableInterception: false,
+});
+
+/******/ })()
+;
