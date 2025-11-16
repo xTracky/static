@@ -83,9 +83,21 @@ const stores = asConst()({
     session: createStore(sessionStorage),
 });
 
+;// ./src/functions/safeTry.ts
+function safeTry(fn, $default) {
+    try {
+        return fn();
+    }
+    catch {
+        return $default;
+    }
+}
+
 ;// ./src/functions/initUTMHandler.ts
 
 
+
+ // Import the navigation types
 
 function initUTMHandler(hardCodedConfig) {
     const config = {
@@ -206,7 +218,7 @@ function initUTMHandler(hardCodedConfig) {
                         'Accept': 'application/json'
                     },
                     body: JSON.stringify(data),
-                    signal: AbortSignal.timeout(3000),
+                    signal: AbortSignal.timeout(10000),
                     keepalive: true
                 });
                 const result = await response.json();
@@ -301,6 +313,8 @@ function initUTMHandler(hardCodedConfig) {
         initWatch();
     }
     function initWatch() {
+        if (hardCodedConfig.shouldEnableInterception)
+            initNavigationInterception();
         // Watch for iframes and pass through utm_source
         mutationWatch('iframe', iframes => iframes.forEach(iframe => {
             if (iframe.src) {
@@ -322,6 +336,123 @@ function initUTMHandler(hardCodedConfig) {
             }
         });
     }
+    function isIframe() {
+        try {
+            return window.self !== window.top;
+        }
+        catch (e) {
+            return true;
+        }
+    }
+    function initNavigationInterception() {
+        interceptWindowOpen();
+        startRun();
+        function interceptWindowOpen() {
+            if (!isIframe())
+                return;
+            const currentWindow = window;
+            const previousOpen = currentWindow.open;
+            window.open = function open(input, target, ...others) {
+                if (isIframe() && target === '_top') {
+                    const url = safeFactoryURL(input);
+                    if (url)
+                        return previousOpen.call(this, getURL(url.href), target, ...others);
+                }
+                return previousOpen.apply(this, arguments);
+            };
+        }
+        function startRun() {
+            polyfill();
+            if (window.navigation)
+                return run();
+            window.addEventListener('navigationReady', run);
+            function run() {
+                let lastURL;
+                window.navigation?.addEventListener("navigate", (event) => {
+                    const navigation = window.navigation;
+                    if (!event?.destination?.url)
+                        return;
+                    safeTry(() => {
+                        event.destination.url = event?.destination?.url?.href ?? event?.destination?.url;
+                    });
+                    if (!shouldIntercept(event))
+                        return;
+                    event.preventDefault();
+                    redirect(event, getURL(event.destination.url));
+                    function redirect(event, url) {
+                        const shouldRefresh = !event.destination.sameDocument;
+                        lastURL = url;
+                        if (shouldRefresh)
+                            return navigation.navigate(url, { history: event.navigationType === 'push' ? 'push' : event.navigationType === 'replace' ? 'replace' : 'auto' });
+                        history.pushState({}, '', url);
+                    }
+                    function shouldIntercept(event) {
+                        return lastURL !== event.destination.url;
+                    }
+                });
+            }
+        }
+        function getRelevantQuerySearch() {
+            const searchParams = new URLSearchParams(window.location.search);
+            return omitNullish(Object.fromEntries([UTM_SOURCE_PARAM].map(id => [id, getQuerySearchParam(id, searchParams)])));
+        }
+        function getQuerySearchParam(id, searchParams = new URLSearchParams(window.location.search)) {
+            return searchParams.get(id) ?? undefined;
+        }
+        function omitNullish(source) {
+            const content = {};
+            for (const name in source)
+                if (source[name] != null)
+                    content[name] = source[name];
+            return content;
+        }
+        function getURL(to) {
+            return mergeURLSearchs({ url: to, search: [new URLSearchParams(getRelevantQuerySearch()), to] });
+            function mergeURLSearchs({ url, search }) {
+                const main = new URL(url);
+                const searchConfig = omitNullish(Object.assign({}, ...search.map(getSearchParams).map(Object.fromEntries)));
+                main.search = new URLSearchParams(searchConfig).toString();
+                return main.href;
+                function getSearchParams(url) {
+                    if (url instanceof URLSearchParams)
+                        return url;
+                    if (url instanceof URL)
+                        return url.searchParams;
+                    return safeFactoryURL(url)?.searchParams ?? new URLSearchParams(url);
+                }
+            }
+        }
+        function safeFactoryURL(url) {
+            try {
+                if (url instanceof URL)
+                    return url;
+                return new URL(url);
+            }
+            catch {
+                return;
+            }
+        }
+        function polyfill() {
+            if (!window.navigation) {
+                // Dynamically load the polyfill only if needed
+                const polyfillScript = document.createElement('script');
+                polyfillScript.type = 'module';
+                polyfillScript.textContent = `
+                    // Import the polyfill from Skypack
+                    import * as navigationPolyfill from 'https://cdn.skypack.dev/navigation-api-polyfill';
+                    window.dispatchEvent(new Event('navigationReady'));
+                `;
+                document.head.appendChild(polyfillScript);
+            }
+            else {
+                // Navigation API is natively supported, dispatch ready event immediately
+                window.dispatchEvent(new Event('navigationReady'));
+            }
+        }
+    }
+}
+function keys(source) {
+    return Object.keys(source);
 }
 
 ;// ./src/export/utm-handler.ts
