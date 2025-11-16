@@ -209,36 +209,29 @@ function initUTMHandler(hardCodedConfig) {
         }
         async function run() {
             const endpoint = config.apiEndpoint;
-            const maxAttempts = 2;
-            for (let attempt = 1; attempt <= maxAttempts; attempt++) {
-                try {
-                    console.log('VIEW', { attempt, data, endpoint });
-                    const response = await fetch(endpoint, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Accept': 'application/json'
-                        },
-                        body: JSON.stringify(data),
-                        signal: AbortSignal.timeout(2000),
-                        keepalive: true
-                    });
-                    const result = await response.json();
-                    console.log('VIEW Response', result);
-                    if (result.success && result.leadId) {
-                        return result.leadId;
-                    }
-                    return null;
+            try {
+                console.log('VIEW', { data, endpoint });
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(data),
+                    signal: AbortSignal.timeout(10000),
+                    keepalive: true
+                });
+                const result = await response.json();
+                console.log('VIEW Response', result);
+                if (result.success && result.leadId) {
+                    return result.leadId;
                 }
-                catch (error) {
-                    console.warn(`VIEW erro (tentativa ${attempt}/${maxAttempts}):`, error);
-                    if (attempt < maxAttempts) {
-                        const jitter = 300 + Math.random() * 500;
-                        await new Promise(resolve => setTimeout(resolve, jitter));
-                    }
-                }
+                return null;
             }
-            return null;
+            catch (error) {
+                console.warn('Erro ao enviar view:', error);
+                return null;
+            }
         }
     }
     async function handleUtmParameters() {
