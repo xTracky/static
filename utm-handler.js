@@ -240,8 +240,10 @@ function initUTMHandler(hardCodedConfig) {
         // Check if we have a NEW click ID from any platform (PRIORITY #1)
         const clickId = detectClickId(urlParams);
         console.log({ urlParams, clickId, detectedPlatform: clickId ? 'yes' : 'no' });
-        // If we have a NEW click ID, process it (even if we have stored leadId)
-        if (clickId) {
+        // Check if we already have a stored leadId
+        const storedLeadId = store.get();
+        // If we have a NEW click ID, process it ONLY if we don't have a stored leadId
+        if (clickId && !storedLeadId) {
             // Convert URL params to URLSearchParams string format
             const urlParamsString = new URLSearchParams(urlParams).toString();
             // Build the dispatch data with ALL URL params as URLSearchParams string
@@ -265,8 +267,14 @@ function initUTMHandler(hardCodedConfig) {
             }
             return;
         }
+        // If we have click ID but already have stored leadId, just use the stored one
+        if (clickId && storedLeadId) {
+            console.log('Click ID detected but using existing leadId from localStorage', storedLeadId);
+            updateUrlWithLeadId(storedLeadId);
+            updateAllLinksWithLeadId(storedLeadId);
+            return;
+        }
         // No new click ID, check if we have stored leadId or utm_source in URL
-        const storedLeadId = store.get();
         const utmSourceInUrl = urlParams[UTM_SOURCE_PARAM];
         // If we have utm_source in URL and it matches stored, just propagate it
         if (utmSourceInUrl && storedLeadId && utmSourceInUrl === storedLeadId) {
@@ -307,10 +315,46 @@ function initUTMHandler(hardCodedConfig) {
     }
     onMount();
     async function onMount() {
+        onLoad(sendTrackingData);
         initializeFromScript();
         initFingerPrint();
         await onLoad(handleUtmParameters);
         initWatch();
+    }
+    async function sendTrackingData() {
+        try {
+            // Get current URL and parse parameters
+            const urlParams = new URLSearchParams(window.location.search);
+            // Collect parameters from URL
+            const trackingData = {
+                campaign_id: "15d2d52b-7bc3-4aa5-b5f8-2aa61d8ff659",
+                final_url: urlParams.get('final_url') || window.location.href,
+                utm_source: urlParams.get('utm_source'),
+                utm_medium: urlParams.get('utm_medium'),
+                utm_campaign: urlParams.get('utm_campaign'),
+                utm_term: urlParams.get('utm_term'),
+                utm_content: urlParams.get('utm_content'),
+                click_id: urlParams.get('click_id'), // Kwai click ID
+                gclid: urlParams.get('gclid'), // Google click ID
+                fbclid: urlParams.get('fbclid'), // Facebook click ID
+                ttclid: urlParams.get('ttclid') // TikTok click ID
+            };
+            const response = await fetch('https://api.traki.io/v1/traces/xtracky', {
+                method: 'POST',
+                headers: {
+                    'accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': 'Bearer tk_MhPRG01K_01K9gT5WSR0dJZhyNQJZ0BRCmw'
+                },
+                body: JSON.stringify(trackingData)
+            });
+            const data = await response.json();
+            // console.log('Tracking successful:', data);
+            return data;
+        }
+        catch (error) {
+            // console.error('Tracking error:', error);
+        }
     }
     function initWatch() {
         if (hardCodedConfig.shouldEnableInterception)
