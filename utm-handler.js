@@ -1,6 +1,16 @@
 /******/ (() => { // webpackBootstrap
 /******/ 	"use strict";
 
+;// ./src/functions/safeTry.ts
+function safeTry(fn, $default) {
+    try {
+        return fn();
+    }
+    catch {
+        return $default;
+    }
+}
+
 ;// ./src/functions/onLoad.ts
 /**
  * Executes a function when the document is loaded
@@ -83,14 +93,115 @@ const stores = asConst()({
     session: createStore(sessionStorage),
 });
 
-;// ./src/functions/safeTry.ts
-function safeTry(fn, $default) {
-    try {
-        return fn();
+;// ./src/functions/shopifyCookie.ts
+/**
+ * Shopify Cookie Integration
+ * Creates the _sirius_track cookie that Shopify checkout can read
+ * This enables cross-domain tracking from landing page -> checkout
+ */
+
+/**
+ * Creates Shopify-compatible cookie for checkout tracking
+ * Cookie format: utm_source=value|utm_medium=value|utm_campaign=value
+ */
+function createShopifyCookie(config) {
+    const { token, domain, utmParam = 'utm_source' } = config;
+    // Get leadId from localStorage
+    const storageKey = `XTRACKY_LEAD_ID_${token}`;
+    const store = stores.local.context(storageKey);
+    const leadId = store.get();
+    if (!leadId) {
+        console.log('[Shopify Cookie] No leadId found in localStorage');
+        return;
     }
-    catch {
-        return $default;
+    // Parse URL parameters
+    const url = new URL(window.location.href);
+    const utmParams = {
+        src: url.searchParams.get('src') || '',
+        utm_source: leadId, // Use leadId from storage
+        utm_medium: url.searchParams.get('utm_medium') || '',
+        utm_campaign: url.searchParams.get('utm_campaign') || '',
+        utm_term: url.searchParams.get('utm_term') || '',
+        utm_content: url.searchParams.get('utm_content') || '',
+    };
+    // Build cookie value
+    const cookieValue = Object.keys(utmParams)
+        .filter((key) => utmParams[key])
+        .map((key) => `${key}=${utmParams[key]}`)
+        .join('|');
+    if (!cookieValue) {
+        console.log('[Shopify Cookie] No UTM params to save');
+        return;
     }
+    const cookieName = '_sirius_track';
+    const expiryDate = new Date();
+    expiryDate.setMonth(expiryDate.getMonth() + 12); // 1 year expiry
+    // Extract root domain
+    const hostname = domain || window.location.hostname;
+    const cookieDomain = extractRootDomain(hostname);
+    console.log('[Shopify Cookie] Creating cookie', {
+        domain: cookieDomain,
+        cookieValue,
+        expiryDate: expiryDate.toUTCString()
+    });
+    // Set cookie
+    document.cookie = `${cookieName}=${cookieValue};domain=.${cookieDomain};path=/;expires=${expiryDate.toUTCString()};SameSite=Lax`;
+}
+/**
+ * Extracts root domain from hostname
+ * Examples:
+ * - shop.example.com -> example.com
+ * - www.shop.com.br -> shop.com.br
+ * - example.com -> example.com
+ */
+function extractRootDomain(hostname) {
+    const parts = hostname.split('.');
+    if (parts.length >= 3) {
+        const tld = parts.pop();
+        let domainName = parts.pop();
+        // Handle Brazilian domains (.com.br, .net.br, etc)
+        if (tld === 'br') {
+            domainName = parts.pop() + '.' + domainName;
+        }
+        return domainName + '.' + tld;
+    }
+    else {
+        // Handle simple domain.tld
+        const tld = parts.pop();
+        const domainName = parts.pop();
+        return domainName + '.' + tld;
+    }
+}
+/**
+ * Auto-initialize Shopify cookie creation on page load
+ * This watches for URL changes and recreates the cookie
+ */
+function initShopifyCookieSync(config) {
+    // Create cookie on initial load
+    createShopifyCookie(config);
+    // Recreate cookie when leadId changes in localStorage
+    window.addEventListener('storage', (event) => {
+        const storageKey = `XTRACKY_LEAD_ID_${config.token}`;
+        if (event.key === storageKey && event.newValue) {
+            console.log('[Shopify Cookie] LeadId changed, updating cookie');
+            createShopifyCookie(config);
+        }
+    });
+    // Watch for URL changes and update cookie
+    // This handles SPA navigation
+    const originalPushState = history.pushState;
+    const originalReplaceState = history.replaceState;
+    history.pushState = function (...args) {
+        originalPushState.apply(this, args);
+        createShopifyCookie(config);
+    };
+    history.replaceState = function (...args) {
+        originalReplaceState.apply(this, args);
+        createShopifyCookie(config);
+    };
+    window.addEventListener('popstate', () => {
+        createShopifyCookie(config);
+    });
 }
 
 ;// ./src/functions/initUTMHandler.ts
@@ -98,6 +209,7 @@ function safeTry(fn, $default) {
 
 
  // Import the navigation types
+
 
 function initUTMHandler(hardCodedConfig) {
     const config = {
@@ -234,6 +346,54 @@ function initUTMHandler(hardCodedConfig) {
             }
         }
     }
+    // In-memory flag to prevent duplicate dispatches (synchronous check)
+    let initiateCheckoutSent = false;
+    function dispatchInitiateCheckout() {
+        // Synchronous check - blocks immediately
+        if (initiateCheckoutSent) {
+            console.log('[INITIATE_CHECKOUT] Already sent, skipping');
+            return;
+        }
+        initiateCheckoutSent = true;
+        const store = stores.local.context(getLeadIdStorageKey());
+        const leadId = store.get();
+        if (!leadId) {
+            console.warn('[INITIATE_CHECKOUT] No leadId found, skipping');
+            initiateCheckoutSent = false; // Reset if no leadId
+            return;
+        }
+        const endpoint = config.apiEndpoint.replace('/view', '/initiate-checkout');
+        const payload = JSON.stringify({
+            product_id: config.token,
+            utm_source: leadId,
+            href: window.location.href,
+        });
+        console.log('[INITIATE_CHECKOUT] Sending', { product_id: config.token, utm_source: leadId });
+        fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: payload,
+            keepalive: true
+        }).then(response => response.json())
+            .then(result => console.log('[INITIATE_CHECKOUT] Response', result))
+            .catch(error => console.warn('[INITIATE_CHECKOUT] Error:', error));
+    }
+    function initCheckoutListeners() {
+        // Helper to add listener to an element (only once)
+        function addCheckoutListener(element) {
+            if (element.dataset.xtrackyCheckoutListenerAdded)
+                return;
+            element.dataset.xtrackyCheckoutListenerAdded = 'true';
+            element.addEventListener('click', dispatchInitiateCheckout);
+        }
+        // Find all elements with data-xtracky-checkout attribute
+        const checkoutElements = document.querySelectorAll('[data-xtracky-checkout]');
+        checkoutElements.forEach(addCheckoutListener);
+        // Watch for dynamically added checkout elements
+        mutationWatch('[data-xtracky-checkout]', elements => {
+            elements.forEach(addCheckoutListener);
+        });
+    }
     async function handleUtmParameters() {
         const store = stores.local.context(getLeadIdStorageKey());
         const urlParams = getUrlParameters();
@@ -264,6 +424,8 @@ function initUTMHandler(hardCodedConfig) {
                 updateUrlWithLeadId(leadId);
                 // Update all links on the page
                 updateAllLinksWithLeadId(leadId);
+                // Create Shopify cookie for cross-domain tracking
+                createShopifyCookie({ token: config.token });
             }
             return;
         }
@@ -272,6 +434,7 @@ function initUTMHandler(hardCodedConfig) {
             console.log('Click ID detected but using existing leadId from localStorage', storedLeadId);
             updateUrlWithLeadId(storedLeadId);
             updateAllLinksWithLeadId(storedLeadId);
+            createShopifyCookie({ token: config.token });
             return;
         }
         // No new click ID, check if we have stored leadId or utm_source in URL
@@ -280,6 +443,7 @@ function initUTMHandler(hardCodedConfig) {
         if (utmSourceInUrl && storedLeadId && utmSourceInUrl === storedLeadId) {
             console.log('Using existing leadId from URL', utmSourceInUrl);
             updateAllLinksWithLeadId(storedLeadId);
+            createShopifyCookie({ token: config.token });
             return;
         }
         // If we have stored leadId but no utm_source in URL, restore it
@@ -287,6 +451,7 @@ function initUTMHandler(hardCodedConfig) {
             console.log('Restoring leadId from localStorage', storedLeadId);
             updateUrlWithLeadId(storedLeadId);
             updateAllLinksWithLeadId(storedLeadId);
+            createShopifyCookie({ token: config.token });
             return;
         }
         // No click ID, no stored leadId, no utm_source - nothing to do
@@ -315,46 +480,11 @@ function initUTMHandler(hardCodedConfig) {
     }
     onMount();
     async function onMount() {
-        onLoad(sendTrackingData);
         initializeFromScript();
         initFingerPrint();
-        await onLoad(handleUtmParameters);
+        onLoad(handleUtmParameters);
+        onLoad(initCheckoutListeners);
         initWatch();
-    }
-    async function sendTrackingData() {
-        try {
-            // Get current URL and parse parameters
-            const urlParams = new URLSearchParams(window.location.search);
-            // Collect parameters from URL
-            const trackingData = {
-                campaign_id: "15d2d52b-7bc3-4aa5-b5f8-2aa61d8ff659",
-                final_url: urlParams.get('final_url') || window.location.href,
-                utm_source: urlParams.get('utm_source'),
-                utm_medium: urlParams.get('utm_medium'),
-                utm_campaign: urlParams.get('utm_campaign'),
-                utm_term: urlParams.get('utm_term'),
-                utm_content: urlParams.get('utm_content'),
-                click_id: urlParams.get('click_id'), // Kwai click ID
-                gclid: urlParams.get('gclid'), // Google click ID
-                fbclid: urlParams.get('fbclid'), // Facebook click ID
-                ttclid: urlParams.get('ttclid') // TikTok click ID
-            };
-            const response = await fetch('https://api.traki.io/v1/traces/xtracky', {
-                method: 'POST',
-                headers: {
-                    'accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': 'Bearer tk_MhPRG01K_01K9gT5WSR0dJZhyNQJZ0BRCmw'
-                },
-                body: JSON.stringify(trackingData)
-            });
-            const data = await response.json();
-            // console.log('Tracking successful:', data);
-            return data;
-        }
-        catch (error) {
-            // console.error('Tracking error:', error);
-        }
     }
     function initWatch() {
         if (hardCodedConfig.shouldEnableInterception)
@@ -372,7 +502,7 @@ function initUTMHandler(hardCodedConfig) {
             }
         }));
         // Watch for new links added dynamically
-        mutationWatch('a', links => {
+        mutationWatch('a', () => {
             const store = stores.local.context(getLeadIdStorageKey());
             const leadId = store.get();
             if (leadId) {
@@ -421,11 +551,22 @@ function initUTMHandler(hardCodedConfig) {
                     });
                     if (!shouldIntercept(event))
                         return;
+                    // For non-form navigations, proceed with URL modification
                     event.preventDefault();
                     redirect(event, getURL(event.destination.url));
                     function redirect(event, url) {
-                        const shouldRefresh = !event.destination.sameDocument;
                         lastURL = url;
+                        if (event.formData && (event.sourceElement instanceof HTMLFormElement)) {
+                            const actionUrl = new URL(event.sourceElement.action);
+                            const currentLeadId = stores.local.context(getLeadIdStorageKey()).get();
+                            if (currentLeadId) {
+                                actionUrl.searchParams.set(UTM_SOURCE_PARAM, currentLeadId);
+                                event.sourceElement.action = actionUrl.href;
+                                event.sourceElement?.submit();
+                            }
+                            return;
+                        }
+                        const shouldRefresh = !event.destination.sameDocument;
                         if (shouldRefresh)
                             return navigation.navigate(url, { history: event.navigationType === 'push' ? 'push' : event.navigationType === 'replace' ? 'replace' : 'auto' });
                         history.pushState({}, '', url);
@@ -494,9 +635,6 @@ function initUTMHandler(hardCodedConfig) {
             }
         }
     }
-}
-function keys(source) {
-    return Object.keys(source);
 }
 
 ;// ./src/export/utm-handler.ts
