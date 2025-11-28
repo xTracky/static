@@ -13,17 +13,25 @@ function safeTry(fn, $default) {
 
 ;// ./src/functions/onLoad.ts
 /**
- * Executes a function when the document is loaded
+ * Executes a function when the DOM is ready (doesn't wait for images/stylesheets)
  * @param fn Function to execute
  */
 function onLoad(fn) {
-    if (isDocumentLoaded()) {
+    if (isDOMReady()) {
         return fn();
     }
-    window.addEventListener("load", fn);
+    // DOMContentLoaded fires when HTML is parsed, much faster than 'load'
+    document.addEventListener("DOMContentLoaded", fn);
 }
 /**
- * Checks if the document is already loaded
+ * Checks if the DOM is ready (interactive or complete)
+ */
+function isDOMReady() {
+    return document.readyState === 'interactive' || document.readyState === 'complete';
+}
+/**
+ * Checks if the document is fully loaded (including images, stylesheets, etc)
+ * @deprecated Use isDOMReady() for faster execution
  */
 function isDocumentLoaded() {
     return document.readyState === 'complete';
@@ -362,21 +370,30 @@ function initUTMHandler(hardCodedConfig) {
             initiateCheckoutSent = false; // Reset if no leadId
             return;
         }
-        const endpoint = config.apiEndpoint.replace('/view', '/initiate-checkout');
+        // Replace only the last '/view' in the path (not 'view' in domain like view.xtracky.dev)
+        const endpoint = config.apiEndpoint.replace(/\/view$/, '/initiate-checkout');
         const payload = JSON.stringify({
             product_id: config.token,
             utm_source: leadId,
             href: window.location.href,
         });
         console.log('[INITIATE_CHECKOUT] Sending', { product_id: config.token, utm_source: leadId });
-        fetch(endpoint, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: payload,
-            keepalive: true
-        }).then(response => response.json())
-            .then(result => console.log('[INITIATE_CHECKOUT] Response', result))
-            .catch(error => console.warn('[INITIATE_CHECKOUT] Error:', error));
+        // Use sendBeacon for reliable delivery during page navigation
+        // sendBeacon is designed to send data even when the page is unloading
+        if (navigator.sendBeacon) {
+            const blob = new Blob([payload], { type: 'application/json' });
+            const sent = navigator.sendBeacon(endpoint, blob);
+            console.log('[INITIATE_CHECKOUT] Sent via sendBeacon:', sent);
+        }
+        else {
+            // Fallback for older browsers (very rare, <4% of users)
+            fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: payload,
+                keepalive: true
+            }).catch(error => console.warn('[INITIATE_CHECKOUT] Error:', error));
+        }
     }
     function initCheckoutListeners() {
         // Helper to add listener to an element (only once)
