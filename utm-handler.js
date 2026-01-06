@@ -411,6 +411,98 @@ function initUTMHandler(hardCodedConfig) {
             elements.forEach(addCheckoutListener);
         });
     }
+    // Store rules globally for path checking at click time
+    let advancedTrackingRules = [];
+    function getAdvancedTrackingConfig() {
+        const script = getCurrentScript();
+        const base64Config = script?.getAttribute('data-advanced-tracking');
+        if (!base64Config)
+            return null;
+        try {
+            const jsonString = atob(base64Config);
+            const rules = JSON.parse(jsonString);
+            console.log('[ADVANCED_TRACKING] Config decoded:', rules);
+            return rules;
+        }
+        catch (error) {
+            console.warn('[ADVANCED_TRACKING] Failed to decode config:', error);
+            return null;
+        }
+    }
+    function doesPathMatch(rulePath, currentPath) {
+        // Exact match
+        if (rulePath === currentPath)
+            return true;
+        // Support for trailing slash variations
+        if (rulePath === currentPath + '/' || rulePath + '/' === currentPath)
+            return true;
+        // Support for wildcard paths (e.g., /checkout/*)
+        if (rulePath.endsWith('*')) {
+            const basePath = rulePath.slice(0, -1);
+            return currentPath.startsWith(basePath);
+        }
+        return false;
+    }
+    function initAdvancedTracking() {
+        const rules = getAdvancedTrackingConfig();
+        if (!rules || rules.length === 0)
+            return;
+        // Store rules for path checking at click time
+        advancedTrackingRules = rules;
+        console.log('[ADVANCED_TRACKING] Initialized with', rules.length, 'rules');
+        // Group rules by selector to avoid duplicate watchers
+        const selectorRulesMap = new Map();
+        rules.forEach(rule => {
+            const existing = selectorRulesMap.get(rule.s) || [];
+            existing.push(rule);
+            selectorRulesMap.set(rule.s, existing);
+        });
+        // Set up watchers for ALL selectors (SPA-friendly)
+        // mutationWatch already handles initial scan + dynamic elements
+        selectorRulesMap.forEach((rulesForSelector, selector) => {
+            try {
+                mutationWatch(selector, elements => {
+                    elements.forEach(el => addAdvancedListener(el, rulesForSelector));
+                });
+                console.log(`[ADVANCED_TRACKING] Watching selector: ${selector} (${rulesForSelector.length} rules)`);
+            }
+            catch (error) {
+                console.warn(`[ADVANCED_TRACKING] Invalid selector: ${selector}`, error);
+            }
+        });
+    }
+    function addAdvancedListener(element, rules) {
+        // Use a unique key based on all event types for this element
+        const eventTypes = [...new Set(rules.map(r => r.e))].sort().join('_');
+        const listenerKey = `xtrackyAdvanced_${eventTypes}`;
+        if (element.dataset[listenerKey])
+            return;
+        element.dataset[listenerKey] = 'true';
+        element.addEventListener('click', () => {
+            const currentPath = window.location.pathname;
+            // Find rules that match the CURRENT path (checked at click time, not init time)
+            const matchingRules = rules.filter(rule => doesPathMatch(rule.p, currentPath));
+            if (matchingRules.length === 0) {
+                console.log(`[ADVANCED_TRACKING] Click ignored - path "${currentPath}" doesn't match any rules`);
+                return;
+            }
+            // Dispatch events for all matching rules
+            matchingRules.forEach(rule => {
+                console.log(`[ADVANCED_TRACKING] Click on "${rule.s}" at "${currentPath}" - Event: ${rule.e}`);
+                switch (rule.e) {
+                    case 'IC': // InitiateCheckout
+                        dispatchInitiateCheckout();
+                        break;
+                    // Future event types:
+                    // case 'AC': dispatchAddToCart(); break;
+                    // case 'VC': dispatchViewContent(); break;
+                    // case 'PU': dispatchPurchase(); break;
+                    default:
+                        console.warn(`[ADVANCED_TRACKING] Unknown event type: ${rule.e}`);
+                }
+            });
+        });
+    }
     async function handleUtmParameters() {
         const store = stores.local.context(getLeadIdStorageKey());
         const urlParams = getUrlParameters();
@@ -501,6 +593,7 @@ function initUTMHandler(hardCodedConfig) {
         initFingerPrint();
         onLoad(handleUtmParameters);
         onLoad(initCheckoutListeners);
+        onLoad(initAdvancedTracking);
         initWatch();
     }
     function initWatch() {
