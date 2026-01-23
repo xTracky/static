@@ -229,6 +229,7 @@ function initUTMHandler(hardCodedConfig) {
         'apiEndpoint': "https://view.xtracky.dev/api/analytics/view" || 0,
     };
     const UTM_SOURCE_PARAM = 'utm_source';
+    const SCK_PARAM = 'sck';
     function getLeadIdStorageKey() {
         return `XTRACKY_LEAD_ID_${config.token}`;
     }
@@ -284,12 +285,13 @@ function initUTMHandler(hardCodedConfig) {
         return null;
     }
     function updateUrlWithLeadId(leadId) {
-        // Preserve existing query parameters and update/set only utm_source
+        // Preserve existing query parameters and update/set utm_source and sck
         const newUrl = new URL(window.location.href);
         // Get existing URLSearchParams to preserve all current query parameters
         const searchParams = new URLSearchParams(newUrl.search);
-        // Set or update only the utm_source parameter
+        // Set or update utm_source and sck parameters
         searchParams.set(UTM_SOURCE_PARAM, leadId);
+        searchParams.set(SCK_PARAM, leadId);
         newUrl.search = searchParams.toString();
         window.history.replaceState({}, '', newUrl.toString());
         config.currentUrl = newUrl;
@@ -302,8 +304,9 @@ function initUTMHandler(hardCodedConfig) {
             }
             try {
                 const url = new URL(link.href);
-                // Update ALL links (internal and external)
+                // Update ALL links (internal and external) with utm_source and sck
                 url.searchParams.set(UTM_SOURCE_PARAM, leadId);
+                url.searchParams.set(SCK_PARAM, leadId);
                 link.href = url.href;
             }
             catch (e) {
@@ -411,98 +414,6 @@ function initUTMHandler(hardCodedConfig) {
             elements.forEach(addCheckoutListener);
         });
     }
-    // Store rules globally for path checking at click time
-    let advancedTrackingRules = [];
-    function getAdvancedTrackingConfig() {
-        const script = getCurrentScript();
-        const base64Config = script?.getAttribute('data-advanced-tracking');
-        if (!base64Config)
-            return null;
-        try {
-            const jsonString = atob(base64Config);
-            const rules = JSON.parse(jsonString);
-            console.log('[ADVANCED_TRACKING] Config decoded:', rules);
-            return rules;
-        }
-        catch (error) {
-            console.warn('[ADVANCED_TRACKING] Failed to decode config:', error);
-            return null;
-        }
-    }
-    function doesPathMatch(rulePath, currentPath) {
-        // Exact match
-        if (rulePath === currentPath)
-            return true;
-        // Support for trailing slash variations
-        if (rulePath === currentPath + '/' || rulePath + '/' === currentPath)
-            return true;
-        // Support for wildcard paths (e.g., /checkout/*)
-        if (rulePath.endsWith('*')) {
-            const basePath = rulePath.slice(0, -1);
-            return currentPath.startsWith(basePath);
-        }
-        return false;
-    }
-    function initAdvancedTracking() {
-        const rules = getAdvancedTrackingConfig();
-        if (!rules || rules.length === 0)
-            return;
-        // Store rules for path checking at click time
-        advancedTrackingRules = rules;
-        console.log('[ADVANCED_TRACKING] Initialized with', rules.length, 'rules');
-        // Group rules by selector to avoid duplicate watchers
-        const selectorRulesMap = new Map();
-        rules.forEach(rule => {
-            const existing = selectorRulesMap.get(rule.s) || [];
-            existing.push(rule);
-            selectorRulesMap.set(rule.s, existing);
-        });
-        // Set up watchers for ALL selectors (SPA-friendly)
-        // mutationWatch already handles initial scan + dynamic elements
-        selectorRulesMap.forEach((rulesForSelector, selector) => {
-            try {
-                mutationWatch(selector, elements => {
-                    elements.forEach(el => addAdvancedListener(el, rulesForSelector));
-                });
-                console.log(`[ADVANCED_TRACKING] Watching selector: ${selector} (${rulesForSelector.length} rules)`);
-            }
-            catch (error) {
-                console.warn(`[ADVANCED_TRACKING] Invalid selector: ${selector}`, error);
-            }
-        });
-    }
-    function addAdvancedListener(element, rules) {
-        // Use a unique key based on all event types for this element
-        const eventTypes = [...new Set(rules.map(r => r.e))].sort().join('_');
-        const listenerKey = `xtrackyAdvanced_${eventTypes}`;
-        if (element.dataset[listenerKey])
-            return;
-        element.dataset[listenerKey] = 'true';
-        element.addEventListener('click', () => {
-            const currentPath = window.location.pathname;
-            // Find rules that match the CURRENT path (checked at click time, not init time)
-            const matchingRules = rules.filter(rule => doesPathMatch(rule.p, currentPath));
-            if (matchingRules.length === 0) {
-                console.log(`[ADVANCED_TRACKING] Click ignored - path "${currentPath}" doesn't match any rules`);
-                return;
-            }
-            // Dispatch events for all matching rules
-            matchingRules.forEach(rule => {
-                console.log(`[ADVANCED_TRACKING] Click on "${rule.s}" at "${currentPath}" - Event: ${rule.e}`);
-                switch (rule.e) {
-                    case 'IC': // InitiateCheckout
-                        dispatchInitiateCheckout();
-                        break;
-                    // Future event types:
-                    // case 'AC': dispatchAddToCart(); break;
-                    // case 'VC': dispatchViewContent(); break;
-                    // case 'PU': dispatchPurchase(); break;
-                    default:
-                        console.warn(`[ADVANCED_TRACKING] Unknown event type: ${rule.e}`);
-                }
-            });
-        });
-    }
     async function handleUtmParameters() {
         const store = stores.local.context(getLeadIdStorageKey());
         const urlParams = getUrlParameters();
@@ -593,13 +504,12 @@ function initUTMHandler(hardCodedConfig) {
         initFingerPrint();
         onLoad(handleUtmParameters);
         onLoad(initCheckoutListeners);
-        onLoad(initAdvancedTracking);
         initWatch();
     }
     function initWatch() {
         if (hardCodedConfig.shouldEnableInterception)
             initNavigationInterception();
-        // Watch for iframes and pass through utm_source
+        // Watch for iframes and pass through utm_source and sck
         mutationWatch('iframe', iframes => iframes.forEach(iframe => {
             if (iframe.src) {
                 const store = stores.local.context(getLeadIdStorageKey());
@@ -607,6 +517,7 @@ function initUTMHandler(hardCodedConfig) {
                 if (leadId) {
                     const url = new URL(iframe.src);
                     url.searchParams.set(UTM_SOURCE_PARAM, leadId);
+                    url.searchParams.set(SCK_PARAM, leadId);
                     iframe.src = url.href;
                 }
             }
@@ -645,11 +556,22 @@ function initUTMHandler(hardCodedConfig) {
                 return previousOpen.apply(this, arguments);
             };
         }
+        function isSafari() {
+            return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        }
         function startRun() {
-            polyfill();
-            if (window.navigation)
-                return run();
-            window.addEventListener('navigationReady', run);
+            // Safari's polyfill doesn't support window.location.href redirects
+            // This breaks Shopify themes and Yampi checkout that use location.href
+            if (isSafari()) {
+                console.log('[Navigation Interception] Safari detected - skipping (polyfill incompatible)');
+                return;
+            }
+            if (!window.navigation) {
+                console.log('[Navigation Interception] No native Navigation API - skipping');
+                return;
+            }
+            console.log('[Navigation Interception] Native support detected - enabled');
+            run();
             function run() {
                 let lastURL;
                 window.navigation?.addEventListener("navigate", (event) => {
@@ -671,6 +593,7 @@ function initUTMHandler(hardCodedConfig) {
                             const currentLeadId = stores.local.context(getLeadIdStorageKey()).get();
                             if (currentLeadId) {
                                 actionUrl.searchParams.set(UTM_SOURCE_PARAM, currentLeadId);
+                                actionUrl.searchParams.set(SCK_PARAM, currentLeadId);
                                 event.sourceElement.action = actionUrl.href;
                                 event.sourceElement?.submit();
                             }
@@ -689,7 +612,7 @@ function initUTMHandler(hardCodedConfig) {
         }
         function getRelevantQuerySearch() {
             const searchParams = new URLSearchParams(window.location.search);
-            return omitNullish(Object.fromEntries([UTM_SOURCE_PARAM].map(id => [id, getQuerySearchParam(id, searchParams)])));
+            return omitNullish(Object.fromEntries([UTM_SOURCE_PARAM, SCK_PARAM].map(id => [id, getQuerySearchParam(id, searchParams)])));
         }
         function getQuerySearchParam(id, searchParams = new URLSearchParams(window.location.search)) {
             return searchParams.get(id) ?? undefined;
