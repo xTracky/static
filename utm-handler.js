@@ -489,8 +489,15 @@ function initUTMHandler(hardCodedConfig) {
     }
     initFingerPrint.promise = withResolvers();
     async function initFingerPrint() {
-        config.fingerPrintId = await getFingerPrintId();
-        initFingerPrint.promise.resolve(config.fingerPrintId);
+        try {
+            config.fingerPrintId = await getFingerPrintId();
+            initFingerPrint.promise.resolve(config.fingerPrintId);
+        }
+        catch (error) {
+            console.warn('[XTRACKY] FingerprintJS initialization failed (CORS or network error). Script continues to work normally without fingerprinting.', error);
+            // Resolve with undefined to prevent blocking the algorithm
+            initFingerPrint.promise.resolve(undefined);
+        }
     }
     async function getFingerPrintId() {
         const FingerprintJS = await dynamicImport('https://cdn.skypack.dev/@fingerprintjs/fingerprintjs@4.0.1').then(res => res.default);
