@@ -384,7 +384,7 @@ function initUTMHandler(hardCodedConfig) {
         // Use sendBeacon for reliable delivery during page navigation
         // sendBeacon is designed to send data even when the page is unloading
         if (navigator.sendBeacon) {
-            const blob = new Blob([payload], { type: 'application/json' });
+            const blob = new Blob([payload], { type: 'text/plain' });
             const sent = navigator.sendBeacon(endpoint, blob);
             console.log('[INITIATE_CHECKOUT] Sent via sendBeacon:', sent);
         }
