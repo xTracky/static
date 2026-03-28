@@ -1,1 +1,800 @@
-function a2_0x5561(){const _0x166836=['currentUrl','No\x20tracking\x20data\x20available','return\x20import(\x22','set','href','call','charAt','preventDefault','application/json','forEach','leadId','navigationType','catch','3834255kVoXjX','apiEndpoint','newValue','location','searchParams','map','xtrackyCheckoutListenerAdded','pushState','XTRACKY_LEAD_ID_','text/plain','[INITIATE_CHECKOUT]\x20Error:','Click\x20ID\x20detected\x20but\x20using\x20existing\x20leadId\x20from\x20localStorage','success','addEventListener','interactive','gclid','get','then','storage','getAttribute','warn','navigationReady','20839184qpTIWr',';path=/;expires=','3981505vteuaw','head','[INITIATE_CHECKOUT]\x20Already\x20sent,\x20skipping','stringify','observe','querySelectorAll','destination','has','push',';domain=.','substring','toUTCString','[INITIATE_CHECKOUT]\x20Sending','src','url','DOMContentLoaded','sendBeacon','setMonth','fingerPrintId','13206AlWZDg','[INITIATE_CHECKOUT]\x20No\x20leadId\x20found,\x20skipping','utm_content','search','[data-xtracky-checkout]','PREVIOUS_PAGE_VIEW','keys','indexOf','4023912ZzOwvI','hostname','log','sck','data-token','utm_medium','Restoring\x20leadId\x20from\x20localStorage','addedNodes','script','getItem','resolve','add','[Shopify\x20Cookie]\x20Creating\x20cookie','visitorId','utm_source','submit','split','Received\x20NEW\x20leadId\x20from\x20backend','iframe','sourceElement','175kqZVdD','[Navigation\x20Interception]\x20No\x20native\x20Navigation\x20API\x20-\x20skipping','module','[INITIATE_CHECKOUT]\x20Sent\x20via\x20sendBeacon:','POST','29766zpklrn','test','fromEntries','matches','navigation','apply','readyState','history','click','fbclid','context','dispatchEvent','userAgent','startsWith','length','sameDocument','textContent','getMonth','data-step-id','assign','[Shopify\x20Cookie]\x20No\x20UTM\x20params\x20to\x20save','yes','initial','appendChild','parse','2468820PZUOuP','self','popstate','join','navigate','top','https://api.xtracky.com/api/browser/view','stepId','filter','VIEW','token','utm_campaign','pop','VIEW\x20Response','complete','replaceState','click_id','Erro\x20ao\x20enviar\x20view:','_fbp','shouldEnableInterception','promise','toString','_sirius_track','\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20//\x20Import\x20the\x20polyfill\x20from\x20Skypack\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20import\x20*\x20as\x20navigationPolyfill\x20from\x20\x27https://cdn.skypack.dev/navigation-api-polyfill\x27;\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20window.dispatchEvent(new\x20Event(\x27navigationReady\x27));\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20','_top','open','(((.+)+)+)+$','https://cdn.skypack.dev/@fingerprintjs/fingerprintjs@4.0.1','local','cookie','replace','/initiate-checkout','setItem'];a2_0x5561=function(){return _0x166836;};return a2_0x5561();}(function(_0x4d641c,_0x5dfc4e){const _0x11704f=a2_0x3ba9,_0x208872=_0x4d641c();while(!![]){try{const _0x5bf952=parseInt(_0x11704f(0x1ec))/0x1+-parseInt(_0x11704f(0x205))/0x2+parseInt(_0x11704f(0x1a0))/0x3+-parseInt(_0x11704f(0x1d3))/0x4+-parseInt(_0x11704f(0x1b8))/0x5+parseInt(_0x11704f(0x1cb))/0x6*(-parseInt(_0x11704f(0x1e7))/0x7)+parseInt(_0x11704f(0x1b6))/0x8;if(_0x5bf952===_0x5dfc4e)break;else _0x208872['push'](_0x208872['shift']());}catch(_0x3a12f2){_0x208872['push'](_0x208872['shift']());}}}(a2_0x5561,0xc872b));function a2_0x3ba9(_0x259939,_0x4d273e){_0x259939=_0x259939-0x18f;const _0x85a7e6=a2_0x5561();let _0x3aa519=_0x85a7e6[_0x259939];return _0x3aa519;}const a2_0x2eb250=(function(){let _0x15b168=!![];return function(_0x244c54,_0x151e31){const _0x56271c=_0x15b168?function(){const _0x17fa75=a2_0x3ba9;if(_0x151e31){const _0xf80f3=_0x151e31[_0x17fa75(0x1f1)](_0x244c54,arguments);return _0x151e31=null,_0xf80f3;}}:function(){};return _0x15b168=![],_0x56271c;};}()),a2_0x3aa519=a2_0x2eb250(this,function(){const _0xcf2ab1=a2_0x3ba9;return a2_0x3aa519[_0xcf2ab1(0x21a)]()[_0xcf2ab1(0x1ce)](_0xcf2ab1(0x21f))[_0xcf2ab1(0x21a)]()['constructor'](a2_0x3aa519)[_0xcf2ab1(0x1ce)]('(((.+)+)+)+$');});a2_0x3aa519(),((()=>{'use strict';;function _0x24130d(_0x9cb1c3,_0x122e9e){try{return _0x9cb1c3();}catch{return _0x122e9e;}};function _0x545826(_0x17ffe1){const _0x18ddb7=a2_0x3ba9;if(_0x25106a())return _0x17ffe1();document[_0x18ddb7(0x1ad)](_0x18ddb7(0x1c7),_0x17ffe1);}function _0x25106a(){const _0x58a13a=a2_0x3ba9;return document[_0x58a13a(0x1f2)]===_0x58a13a(0x1ae)||document['readyState']===_0x58a13a(0x213);}function _0x48b76c(){const _0x3e58d5=a2_0x3ba9;return document['readyState']===_0x3e58d5(0x213);};function _0x227c03(_0x32cda2,_0x3544d4,_0x2ef6b8=document){_0x545826(()=>{const _0x15dd6e=a2_0x3ba9;_0x3544d4(_0x2ef6b8[_0x15dd6e(0x1bd)](_0x32cda2));const _0x33fe25=new MutationObserver(_0x49d351=>{const _0x179a26=_0x15dd6e;_0x49d351[_0x179a26(0x19c)](_0x490148=>{const _0x5dd797=_0x179a26;_0x490148[_0x5dd797(0x1da)]&&_0x490148[_0x5dd797(0x1da)][_0x5dd797(0x1fa)]>0x0&&_0x490148[_0x5dd797(0x1da)][_0x5dd797(0x19c)](_0x9e149a=>{const _0x1a9e22=_0x5dd797;_0x9e149a instanceof Element&&(_0x9e149a[_0x1a9e22(0x1ef)](_0x32cda2)&&_0x3544d4([_0x9e149a]),_0x3544d4(_0x9e149a[_0x1a9e22(0x1bd)](_0x32cda2)));});});});_0x33fe25[_0x15dd6e(0x1bc)](_0x2ef6b8,{'childList':!![],'subtree':!![]});});};function _0x1e37ce(_0x231cab){const _0x877bbf=this;return{'get'(){const _0xc168df=a2_0x3ba9;return _0x877bbf[_0xc168df(0x1b0)](_0x231cab);},'set'(_0x350fe6){const _0x1b1cd3=a2_0x3ba9;return _0x877bbf[_0x1b1cd3(0x196)](_0x231cab,_0x350fe6);}};}function _0x141601(_0x38ccf0){return{'context':_0x1e37ce,'get'(_0x346132){const _0x15fade=a2_0x3ba9;return _0x38ccf0[_0x15fade(0x1dc)](_0x346132)??undefined;},'set'(_0x28b695,_0x5e6967){const _0x56593f=a2_0x3ba9;_0x38ccf0[_0x56593f(0x192)](_0x28b695,_0x5e6967);}};}function _0x4ab436(){return _0x506d28=>_0x506d28;}const _0x2fb32e=_0x4ab436()({'local':_0x141601(localStorage),'session':_0x141601(sessionStorage)});;function _0x1102de(_0x9f83e9){const _0x2669a5=a2_0x3ba9,{token:_0x44f453,domain:_0x5a699b,utmParam:utmParam=_0x2669a5(0x1e1)}=_0x9f83e9,_0x4f2227='XTRACKY_LEAD_ID_'+_0x44f453,_0x2a3888=_0x2fb32e[_0x2669a5(0x221)][_0x2669a5(0x1f6)](_0x4f2227),_0x345e81=_0x2a3888[_0x2669a5(0x1b0)]();if(!_0x345e81){console[_0x2669a5(0x1d5)]('[Shopify\x20Cookie]\x20No\x20leadId\x20found\x20in\x20localStorage');return;}const _0x28b84f=new URL(window[_0x2669a5(0x1a3)][_0x2669a5(0x197)]),_0x48c81a={'src':_0x28b84f[_0x2669a5(0x1a4)][_0x2669a5(0x1b0)](_0x2669a5(0x1c5))||'','utm_source':_0x345e81,'utm_medium':_0x28b84f[_0x2669a5(0x1a4)][_0x2669a5(0x1b0)](_0x2669a5(0x1d8))||'','utm_campaign':_0x28b84f[_0x2669a5(0x1a4)][_0x2669a5(0x1b0)](_0x2669a5(0x210))||'','utm_term':_0x28b84f['searchParams'][_0x2669a5(0x1b0)]('utm_term')||'','utm_content':_0x28b84f[_0x2669a5(0x1a4)][_0x2669a5(0x1b0)](_0x2669a5(0x1cd))||''},_0x2cdc0f=Object[_0x2669a5(0x1d1)](_0x48c81a)[_0x2669a5(0x20d)](_0xa845b1=>_0x48c81a[_0xa845b1])[_0x2669a5(0x1a5)](_0x486e33=>_0x486e33+'='+_0x48c81a[_0x486e33])[_0x2669a5(0x208)]('|');if(!_0x2cdc0f){console[_0x2669a5(0x1d5)](_0x2669a5(0x200));return;}const _0x2d81ff=_0x2669a5(0x21b),_0xb06f0f=new Date();_0xb06f0f[_0x2669a5(0x1c9)](_0xb06f0f[_0x2669a5(0x1fd)]()+0xc);const _0x41c9a3=_0x5a699b||window[_0x2669a5(0x1a3)][_0x2669a5(0x1d4)],_0x5caacc=_0x4b726c(_0x41c9a3);console[_0x2669a5(0x1d5)](_0x2669a5(0x1df),{'domain':_0x5caacc,'cookieValue':_0x2cdc0f,'expiryDate':_0xb06f0f[_0x2669a5(0x1c3)]()}),document[_0x2669a5(0x18f)]=_0x2d81ff+'='+_0x2cdc0f+_0x2669a5(0x1c1)+_0x5caacc+_0x2669a5(0x1b7)+_0xb06f0f[_0x2669a5(0x1c3)]()+';SameSite=Lax';}function _0x4b726c(_0x35e1bb){const _0x119bdf=a2_0x3ba9,_0x2da5e0=_0x35e1bb[_0x119bdf(0x1e3)]('.');if(_0x2da5e0[_0x119bdf(0x1fa)]>=0x3){const _0x572050=_0x2da5e0['pop']();let _0x5d4e00=_0x2da5e0[_0x119bdf(0x211)]();return _0x572050==='br'&&(_0x5d4e00=_0x2da5e0['pop']()+'.'+_0x5d4e00),_0x5d4e00+'.'+_0x572050;}else{const _0x5a3459=_0x2da5e0[_0x119bdf(0x211)](),_0xf25ef5=_0x2da5e0[_0x119bdf(0x211)]();return _0xf25ef5+'.'+_0x5a3459;}}function _0xef0d0(_0x2f019c){const _0x2c5768=a2_0x3ba9;_0x1102de(_0x2f019c),window[_0x2c5768(0x1ad)](_0x2c5768(0x1b2),_0xbf9bc7=>{const _0x22c4d4=_0x2c5768,_0x330f96='XTRACKY_LEAD_ID_'+_0x2f019c[_0x22c4d4(0x20f)];_0xbf9bc7['key']===_0x330f96&&_0xbf9bc7[_0x22c4d4(0x1a2)]&&(console[_0x22c4d4(0x1d5)]('[Shopify\x20Cookie]\x20LeadId\x20changed,\x20updating\x20cookie'),_0x1102de(_0x2f019c));});const _0xe3bb6e=history[_0x2c5768(0x1a7)],_0x217133=history[_0x2c5768(0x214)];history[_0x2c5768(0x1a7)]=function(..._0x111cd0){const _0x576834=_0x2c5768;_0xe3bb6e[_0x576834(0x1f1)](this,_0x111cd0),_0x1102de(_0x2f019c);},history[_0x2c5768(0x214)]=function(..._0x770e88){const _0x263c84=_0x2c5768;_0x217133[_0x263c84(0x1f1)](this,_0x770e88),_0x1102de(_0x2f019c);},window[_0x2c5768(0x1ad)](_0x2c5768(0x207),()=>{_0x1102de(_0x2f019c);});};function _0x2da7f2(_0x376a62){const _0x34aa5e=a2_0x3ba9,_0x1ed568={'token':'','clickIdParams':[_0x34aa5e(0x215),'ttclid',_0x34aa5e(0x1f5),_0x34aa5e(0x1af)],'stepId':_0x34aa5e(0x202),'currentUrl':new URL(window[_0x34aa5e(0x1a3)]['href']),'fingerPrintId':undefined,'apiEndpoint':_0x34aa5e(0x20b)},_0x284d5d=_0x34aa5e(0x1e1),_0x10b6f1=_0x34aa5e(0x1d6);function _0x1985f9(){const _0x40a75c=_0x34aa5e;return _0x40a75c(0x1a8)+_0x1ed568[_0x40a75c(0x20f)];}function _0x43e1cc(){const _0x49858d=_0x34aa5e,_0x463a66=_0x1764aa();_0x463a66&&Object[_0x49858d(0x1ff)](_0x1ed568,{'token':_0x3a3312()||'','stepId':_0x463a66[_0x49858d(0x1b3)](_0x49858d(0x1fe))||_0x49858d(0x202),'currentUrl':new URL(window[_0x49858d(0x1a3)][_0x49858d(0x197)])});}function _0x1764aa(){const _0x163c8e=document['currentScript'];return _0x163c8e;}function _0x3a3312(){const _0x28eca5=_0x34aa5e,_0x51ff62=_0x1764aa();return _0x51ff62?.['getAttribute'](_0x28eca5(0x1d7));}function _0x12a984(_0x20a56a){const _0x10abe7=_0x34aa5e,_0x56dcd4=_0x20a56a+'=',_0x5d86c3=document[_0x10abe7(0x18f)][_0x10abe7(0x1e3)](';');for(let _0xa789b9=0x0;_0xa789b9<_0x5d86c3[_0x10abe7(0x1fa)];_0xa789b9++){let _0x5c4807=_0x5d86c3[_0xa789b9];while(_0x5c4807[_0x10abe7(0x199)](0x0)==='\x20')_0x5c4807=_0x5c4807[_0x10abe7(0x1c2)](0x1,_0x5c4807[_0x10abe7(0x1fa)]);if(_0x5c4807[_0x10abe7(0x1d2)](_0x56dcd4)===0x0)return _0x5c4807[_0x10abe7(0x1c2)](_0x56dcd4[_0x10abe7(0x1fa)],_0x5c4807['length']);}return null;}function _0x542eba(){const _0x55650b=_0x34aa5e,_0x3dabec=Object[_0x55650b(0x1ee)](new URLSearchParams(window[_0x55650b(0x1a3)][_0x55650b(0x1ce)]));if(_0x3dabec[_0x55650b(0x1f5)]){const _0x308a9a=_0x12a984(_0x55650b(0x217));_0x308a9a&&(_0x3dabec['_fbp']=_0x308a9a);}return _0x3dabec;}function _0x57f131(_0x4484bb){for(const _0x4e3e3c of _0x1ed568['clickIdParams']){if(_0x4484bb[_0x4e3e3c])return _0x4484bb[_0x4e3e3c];}return null;}function _0x2fb352(_0x21667c){const _0x5a175c=_0x34aa5e,_0x5e3f0e=new URL(window[_0x5a175c(0x1a3)][_0x5a175c(0x197)]),_0x2f7854=new URLSearchParams(_0x5e3f0e[_0x5a175c(0x1ce)]);_0x2f7854[_0x5a175c(0x196)](_0x284d5d,_0x21667c),_0x2f7854['set'](_0x10b6f1,_0x21667c),_0x5e3f0e[_0x5a175c(0x1ce)]=_0x2f7854[_0x5a175c(0x21a)](),window[_0x5a175c(0x1f3)][_0x5a175c(0x214)]({},'',_0x5e3f0e[_0x5a175c(0x21a)]()),_0x1ed568[_0x5a175c(0x193)]=_0x5e3f0e;}function _0x418eac(_0x12a07a){const _0x2d0047=_0x34aa5e,_0x7755cf=document[_0x2d0047(0x1bd)]('a');_0x7755cf[_0x2d0047(0x19c)](_0x44dfd5=>{const _0x3d4ad3=_0x2d0047;if(!_0x44dfd5[_0x3d4ad3(0x197)]||_0x44dfd5[_0x3d4ad3(0x197)][_0x3d4ad3(0x1f9)]('#')||_0x44dfd5[_0x3d4ad3(0x197)]['startsWith']('javascript:'))return;try{const _0x2acadc=new URL(_0x44dfd5[_0x3d4ad3(0x197)]);_0x2acadc[_0x3d4ad3(0x1a4)][_0x3d4ad3(0x196)](_0x284d5d,_0x12a07a),_0x2acadc[_0x3d4ad3(0x1a4)]['set'](_0x10b6f1,_0x12a07a),_0x44dfd5['href']=_0x2acadc[_0x3d4ad3(0x197)];}catch(_0x4db559){}});}async function _0x50a9c8(_0x262448){if(_0xa8102e(_0x262448))return null;return _0x3c3910();function _0xa8102e(_0x46261f){const _0x28c068=a2_0x3ba9,_0x560e24=_0x28c068(0x1d0),_0x4b1234=JSON[_0x28c068(0x204)](sessionStorage['getItem'](_0x560e24)??'[]'),_0x5b1319=new Set(_0x4b1234),_0xee4a4=JSON[_0x28c068(0x1bb)](_0x46261f);if(_0x5b1319[_0x28c068(0x1bf)](_0xee4a4))return!![];return _0x5b1319[_0x28c068(0x1de)](_0xee4a4),sessionStorage[_0x28c068(0x192)](_0x560e24,JSON['stringify']([..._0x5b1319['values']()])),![];}async function _0x3c3910(){const _0x4c61f5=a2_0x3ba9,_0x2ce3ca=_0x1ed568['apiEndpoint'];try{console[_0x4c61f5(0x1d5)](_0x4c61f5(0x20e),{'data':_0x262448,'endpoint':_0x2ce3ca});const _0x331895=await fetch(_0x2ce3ca,{'method':_0x4c61f5(0x1eb),'headers':{'Content-Type':_0x4c61f5(0x19b),'Accept':_0x4c61f5(0x19b)},'body':JSON[_0x4c61f5(0x1bb)](_0x262448),'signal':AbortSignal['timeout'](0x2710),'keepalive':!![]}),_0x36bca6=await _0x331895['json']();console[_0x4c61f5(0x1d5)](_0x4c61f5(0x212),_0x36bca6);if(_0x36bca6[_0x4c61f5(0x1ac)]&&_0x36bca6[_0x4c61f5(0x19d)])return _0x36bca6[_0x4c61f5(0x19d)];return null;}catch(_0x5662bc){return console['warn'](_0x4c61f5(0x216),_0x5662bc),null;}}}let _0x224c86=![];function _0xf481b3(){const _0x54f6db=_0x34aa5e;if(_0x224c86){console[_0x54f6db(0x1d5)](_0x54f6db(0x1ba));return;}_0x224c86=!![];const _0x11724d=_0x2fb32e[_0x54f6db(0x221)]['context'](_0x1985f9()),_0xe9cd92=_0x11724d['get']();if(!_0xe9cd92){console[_0x54f6db(0x1b4)](_0x54f6db(0x1cc)),_0x224c86=![];return;}const _0x549a5e=_0x1ed568[_0x54f6db(0x1a1)][_0x54f6db(0x190)](/\/view$/,_0x54f6db(0x191)),_0xb67e1a=JSON[_0x54f6db(0x1bb)]({'product_id':_0x1ed568[_0x54f6db(0x20f)],'utm_source':_0xe9cd92,'href':window[_0x54f6db(0x1a3)]['href']});console['log'](_0x54f6db(0x1c4),{'product_id':_0x1ed568[_0x54f6db(0x20f)],'utm_source':_0xe9cd92});if(navigator[_0x54f6db(0x1c8)]){const _0x48d042=new Blob([_0xb67e1a],{'type':_0x54f6db(0x1a9)}),_0xc68287=navigator[_0x54f6db(0x1c8)](_0x549a5e,_0x48d042);console[_0x54f6db(0x1d5)](_0x54f6db(0x1ea),_0xc68287);}else fetch(_0x549a5e,{'method':_0x54f6db(0x1eb),'headers':{'Content-Type':_0x54f6db(0x19b)},'body':_0xb67e1a,'keepalive':!![]})[_0x54f6db(0x19f)](_0x54d00b=>console[_0x54f6db(0x1b4)](_0x54f6db(0x1aa),_0x54d00b));}function _0x34ffb2(){const _0x92b396=_0x34aa5e;function _0x1deed7(_0x4e73ee){const _0x30d3a0=a2_0x3ba9;if(_0x4e73ee['dataset'][_0x30d3a0(0x1a6)])return;_0x4e73ee['dataset'][_0x30d3a0(0x1a6)]='true',_0x4e73ee[_0x30d3a0(0x1ad)](_0x30d3a0(0x1f4),_0xf481b3);}const _0x30fa61=document[_0x92b396(0x1bd)]('[data-xtracky-checkout]');_0x30fa61[_0x92b396(0x19c)](_0x1deed7),_0x227c03(_0x92b396(0x1cf),_0x7e3247=>{const _0x2c83ad=_0x92b396;_0x7e3247[_0x2c83ad(0x19c)](_0x1deed7);});}async function _0x485176(){const _0x534d36=_0x34aa5e,_0x5a4ef5=_0x2fb32e[_0x534d36(0x221)][_0x534d36(0x1f6)](_0x1985f9()),_0x249ca3=_0x542eba(),_0xe233ed=_0x57f131(_0x249ca3);console[_0x534d36(0x1d5)]({'urlParams':_0x249ca3,'clickId':_0xe233ed,'detectedPlatform':_0xe233ed?_0x534d36(0x201):'no'});const _0x59887b=_0x5a4ef5['get']();if(_0xe233ed&&!_0x59887b){const _0x3e6b93=new URLSearchParams(_0x249ca3)[_0x534d36(0x21a)](),_0x3e63a5={'step_id':_0x1ed568[_0x534d36(0x20c)],'href':_0x1ed568['currentUrl'][_0x534d36(0x197)],'product_id':_0x1ed568['token'],'finger_print_id':_0x1ed568[_0x534d36(0x1ca)]??await _0x1add8d[_0x534d36(0x219)][_0x534d36(0x219)],'url_params':_0x3e6b93},_0x2fd9a5=await _0x50a9c8(_0x3e63a5);_0x2fd9a5&&(console[_0x534d36(0x1d5)](_0x534d36(0x1e4),_0x2fd9a5),_0x5a4ef5[_0x534d36(0x196)](_0x2fd9a5),_0x2fb352(_0x2fd9a5),_0x418eac(_0x2fd9a5),_0x1102de({'token':_0x1ed568[_0x534d36(0x20f)]}));return;}if(_0xe233ed&&_0x59887b){console[_0x534d36(0x1d5)](_0x534d36(0x1ab),_0x59887b),_0x2fb352(_0x59887b),_0x418eac(_0x59887b),_0x1102de({'token':_0x1ed568[_0x534d36(0x20f)]});return;}const _0x38da44=_0x249ca3[_0x284d5d];if(_0x38da44&&_0x59887b&&_0x38da44===_0x59887b){console[_0x534d36(0x1d5)]('Using\x20existing\x20leadId\x20from\x20URL',_0x38da44),_0x418eac(_0x59887b),_0x1102de({'token':_0x1ed568[_0x534d36(0x20f)]});return;}if(_0x59887b&&!_0x38da44){console[_0x534d36(0x1d5)](_0x534d36(0x1d9),_0x59887b),_0x2fb352(_0x59887b),_0x418eac(_0x59887b),_0x1102de({'token':_0x1ed568[_0x534d36(0x20f)]});return;}console[_0x534d36(0x1d5)](_0x534d36(0x194));}async function _0x3f1fb0(_0x14de32){const _0x111103=_0x34aa5e;return new Function(_0x111103(0x195)+_0x14de32+'\x22)')();}function _0x4a65d9(){const _0x4125cb=_0x34aa5e,_0x203499={};return _0x203499[_0x4125cb(0x219)]=new Promise((_0x910e35,_0x1db4b5)=>{const _0x50c1f9=_0x4125cb;Object[_0x50c1f9(0x1ff)](_0x203499,{'resolve':_0x910e35,'reject':_0x1db4b5});}),_0x203499;}_0x1add8d['promise']=_0x4a65d9();async function _0x1add8d(){const _0x1ab84a=_0x34aa5e;try{_0x1ed568[_0x1ab84a(0x1ca)]=await _0x5428e6(),_0x1add8d[_0x1ab84a(0x219)][_0x1ab84a(0x1dd)](_0x1ed568[_0x1ab84a(0x1ca)]);}catch(_0x10846f){console[_0x1ab84a(0x1b4)]('[XTRACKY]\x20FingerprintJS\x20initialization\x20failed\x20(CORS\x20or\x20network\x20error).\x20Script\x20continues\x20to\x20work\x20normally\x20without\x20fingerprinting.',_0x10846f),_0x1add8d[_0x1ab84a(0x219)]['resolve'](undefined);}}async function _0x5428e6(){const _0x19bddd=_0x34aa5e,_0x2c8846=await _0x3f1fb0(_0x19bddd(0x220))[_0x19bddd(0x1b1)](_0x59e707=>_0x59e707['default']),_0x46b62c=await _0x2c8846['load']()['then'](_0x42ed52=>_0x42ed52[_0x19bddd(0x1b0)]()),_0x2ca78f=_0x46b62c[_0x19bddd(0x1e0)];return _0x2ca78f;}_0x5daf3a();async function _0x5daf3a(){_0x43e1cc(),_0x1add8d(),_0x545826(_0x485176),_0x545826(_0x34ffb2),_0x58e938();}function _0x58e938(){const _0x3bbeb7=_0x34aa5e;if(_0x376a62[_0x3bbeb7(0x218)])_0x1855dc();_0x227c03(_0x3bbeb7(0x1e5),_0x48bb9f=>_0x48bb9f[_0x3bbeb7(0x19c)](_0x1befc9=>{const _0x3023f0=_0x3bbeb7;if(_0x1befc9['src']){const _0x4ce2b1=_0x2fb32e['local'][_0x3023f0(0x1f6)](_0x1985f9()),_0x400057=_0x4ce2b1['get']();if(_0x400057){const _0x390062=new URL(_0x1befc9[_0x3023f0(0x1c5)]);_0x390062[_0x3023f0(0x1a4)][_0x3023f0(0x196)](_0x284d5d,_0x400057),_0x390062[_0x3023f0(0x1a4)][_0x3023f0(0x196)](_0x10b6f1,_0x400057),_0x1befc9[_0x3023f0(0x1c5)]=_0x390062[_0x3023f0(0x197)];}}})),_0x227c03('a',()=>{const _0x49e44e=_0x3bbeb7,_0x210c21=_0x2fb32e['local']['context'](_0x1985f9()),_0xe8396f=_0x210c21[_0x49e44e(0x1b0)]();_0xe8396f&&_0x418eac(_0xe8396f);});}function _0x2186a1(){const _0x2ef690=_0x34aa5e;try{return window[_0x2ef690(0x206)]!==window[_0x2ef690(0x20a)];}catch(_0x36c37a){return!![];}}function _0x1855dc(){const _0x12611f=_0x34aa5e;_0x5414b6(),_0x1d98d5();function _0x5414b6(){const _0x37db21=a2_0x3ba9;if(!_0x2186a1())return;const _0x4f1762=window,_0x4723b8=_0x4f1762[_0x37db21(0x21e)];window[_0x37db21(0x21e)]=function _0x96e8f(_0x2bd3ed,_0x18abf1,..._0x32a12e){const _0x586f4b=_0x37db21;if(_0x2186a1()&&_0x18abf1===_0x586f4b(0x21d)){const _0x54c022=_0x35e893(_0x2bd3ed);if(_0x54c022)return _0x4723b8[_0x586f4b(0x198)](this,_0x4f7805(_0x54c022[_0x586f4b(0x197)]),_0x18abf1,..._0x32a12e);}return _0x4723b8[_0x586f4b(0x1f1)](this,arguments);};}function _0x4e444e(){const _0x2ce91e=a2_0x3ba9;return/^((?!chrome|android).)*safari/i[_0x2ce91e(0x1ed)](navigator[_0x2ce91e(0x1f8)]);}function _0x1d98d5(){const _0x109876=a2_0x3ba9;if(_0x4e444e()){console[_0x109876(0x1d5)]('[Navigation\x20Interception]\x20Safari\x20detected\x20-\x20skipping\x20(polyfill\x20incompatible)');return;}if(!window[_0x109876(0x1f0)]){console[_0x109876(0x1d5)](_0x109876(0x1e8));return;}console['log']('[Navigation\x20Interception]\x20Native\x20support\x20detected\x20-\x20enabled'),_0x4c4fbf();function _0x4c4fbf(){const _0x580e5d=_0x109876;let _0x11ef48;window[_0x580e5d(0x1f0)]?.[_0x580e5d(0x1ad)](_0x580e5d(0x209),_0x4c3ead=>{const _0x30c7e5=_0x580e5d,_0xe3ac6d=window[_0x30c7e5(0x1f0)];if(!_0x4c3ead?.[_0x30c7e5(0x1be)]?.[_0x30c7e5(0x1c6)])return;_0x24130d(()=>{const _0x132388=_0x30c7e5;_0x4c3ead[_0x132388(0x1be)][_0x132388(0x1c6)]=_0x4c3ead?.[_0x132388(0x1be)]?.[_0x132388(0x1c6)]?.[_0x132388(0x197)]??_0x4c3ead?.[_0x132388(0x1be)]?.[_0x132388(0x1c6)];});if(!_0x22dc63(_0x4c3ead))return;_0x4c3ead[_0x30c7e5(0x19a)](),_0x27e58d(_0x4c3ead,_0x4f7805(_0x4c3ead[_0x30c7e5(0x1be)][_0x30c7e5(0x1c6)]));function _0x27e58d(_0x193e73,_0x54c645){const _0x5d85e4=_0x30c7e5;_0x11ef48=_0x54c645;if(_0x193e73['formData']&&_0x193e73[_0x5d85e4(0x1e6)]instanceof HTMLFormElement){const _0x51c14a=new URL(_0x193e73[_0x5d85e4(0x1e6)]['action']),_0x1fc33e=_0x2fb32e[_0x5d85e4(0x221)][_0x5d85e4(0x1f6)](_0x1985f9())[_0x5d85e4(0x1b0)]();_0x1fc33e&&(_0x51c14a[_0x5d85e4(0x1a4)][_0x5d85e4(0x196)](_0x284d5d,_0x1fc33e),_0x51c14a['searchParams'][_0x5d85e4(0x196)](_0x10b6f1,_0x1fc33e),_0x193e73['sourceElement']['action']=_0x51c14a['href'],_0x193e73[_0x5d85e4(0x1e6)]?.[_0x5d85e4(0x1e2)]());return;}const _0x5f296c=!_0x193e73[_0x5d85e4(0x1be)][_0x5d85e4(0x1fb)];if(_0x5f296c)return _0xe3ac6d[_0x5d85e4(0x209)](_0x54c645,{'history':_0x193e73[_0x5d85e4(0x19e)]===_0x5d85e4(0x1c0)?_0x5d85e4(0x1c0):_0x193e73[_0x5d85e4(0x19e)]===_0x5d85e4(0x190)?_0x5d85e4(0x190):'auto'});history[_0x5d85e4(0x1a7)]({},'',_0x54c645);}function _0x22dc63(_0x375841){const _0x42e329=_0x30c7e5;return _0x11ef48!==_0x375841[_0x42e329(0x1be)][_0x42e329(0x1c6)];}});}}function _0x3b6fb3(){const _0x3ed6eb=a2_0x3ba9,_0x4c11e8=new URLSearchParams(window['location'][_0x3ed6eb(0x1ce)]);return _0xf8cae6(Object[_0x3ed6eb(0x1ee)]([_0x284d5d,_0x10b6f1][_0x3ed6eb(0x1a5)](_0x19576e=>[_0x19576e,_0x3b668e(_0x19576e,_0x4c11e8)])));}function _0x3b668e(_0x4e52e9,_0x1b9224=new URLSearchParams(window[_0x12611f(0x1a3)][_0x12611f(0x1ce)])){const _0x5f3cba=_0x12611f;return _0x1b9224[_0x5f3cba(0x1b0)](_0x4e52e9)??undefined;}function _0xf8cae6(_0x306074){const _0x3fb9d1={};for(const _0xbf486a in _0x306074)if(_0x306074[_0xbf486a]!=null)_0x3fb9d1[_0xbf486a]=_0x306074[_0xbf486a];return _0x3fb9d1;}function _0x4f7805(_0x1391d5){return _0x291b61({'url':_0x1391d5,'search':[new URLSearchParams(_0x3b6fb3()),_0x1391d5]});function _0x291b61({url:_0x63b5f4,search:_0x485d19}){const _0xba31c7=a2_0x3ba9,_0x176784=new URL(_0x63b5f4),_0x32f6e8=_0xf8cae6(Object[_0xba31c7(0x1ff)]({},..._0x485d19[_0xba31c7(0x1a5)](_0x363d13)[_0xba31c7(0x1a5)](Object[_0xba31c7(0x1ee)])));_0x176784[_0xba31c7(0x1ce)]=new URLSearchParams(_0x32f6e8)[_0xba31c7(0x21a)]();return _0x176784[_0xba31c7(0x197)];function _0x363d13(_0x92f03f){const _0x3afcc9=_0xba31c7;if(_0x92f03f instanceof URLSearchParams)return _0x92f03f;if(_0x92f03f instanceof URL)return _0x92f03f[_0x3afcc9(0x1a4)];return _0x35e893(_0x92f03f)?.[_0x3afcc9(0x1a4)]??new URLSearchParams(_0x92f03f);}}}function _0x35e893(_0x2be0c4){try{if(_0x2be0c4 instanceof URL)return _0x2be0c4;return new URL(_0x2be0c4);}catch{return;}}function _0x2fd775(){const _0x5286f2=_0x12611f;if(!window['navigation']){const _0x33b59f=document['createElement'](_0x5286f2(0x1db));_0x33b59f['type']=_0x5286f2(0x1e9),_0x33b59f[_0x5286f2(0x1fc)]=_0x5286f2(0x21c),document[_0x5286f2(0x1b9)][_0x5286f2(0x203)](_0x33b59f);}else window[_0x5286f2(0x1f7)](new Event(_0x5286f2(0x1b5)));}}};_0x2da7f2({'shouldEnableInterception':![]});})());
+/******/ (() => { // webpackBootstrap
+/******/ 	"use strict";
+
+;// ./src/functions/safeTry.ts
+function safeTry(fn, $default) {
+    try {
+        return fn();
+    }
+    catch {
+        return $default;
+    }
+}
+
+;// ./src/functions/onLoad.ts
+/**
+ * Executes a function when the DOM is ready (doesn't wait for images/stylesheets)
+ * @param fn Function to execute
+ */
+function onLoad(fn) {
+    if (isDOMReady()) {
+        return fn();
+    }
+    // DOMContentLoaded fires when HTML is parsed, much faster than 'load'
+    document.addEventListener("DOMContentLoaded", fn);
+}
+/**
+ * Checks if the DOM is ready (interactive or complete)
+ */
+function isDOMReady() {
+    return document.readyState === 'interactive' || document.readyState === 'complete';
+}
+/**
+ * Checks if the document is fully loaded (including images, stylesheets, etc)
+ * @deprecated Use isDOMReady() for faster execution
+ */
+function isDocumentLoaded() {
+    return document.readyState === 'complete';
+}
+
+;// ./src/functions/watch.ts
+
+function mutationWatch(query, process, root = document) {
+    onLoad(() => {
+        // Process existing iframes when page loads
+        process(root.querySelectorAll(query));
+        // Set up observer for dynamically added iframes
+        const observer = new MutationObserver((mutations) => {
+            mutations.forEach((mutation) => {
+                // Check for added nodes
+                if (mutation.addedNodes && mutation.addedNodes.length > 0) {
+                    mutation.addedNodes.forEach((node) => {
+                        // Check if the added node is an iframe
+                        if (node instanceof Element) {
+                            if (node.matches(query)) {
+                                process([node]);
+                            }
+                            // Check if the added node contains iframes
+                            process(node.querySelectorAll(query));
+                        }
+                    });
+                }
+            });
+        });
+        // Start observing the entire document for changes
+        observer.observe(root, {
+            childList: true, // Watch for changes to the direct children
+            subtree: true // Watch for changes in the entire subtree
+        });
+        // Function to process iframes and add parent URL parameters
+    });
+}
+
+;// ./src/functions/storage.ts
+function context(name) {
+    const context = this;
+    return {
+        get() {
+            return context.get(name);
+        },
+        set(value) {
+            return context.set(name, value);
+        }
+    };
+}
+function createStore(storage) {
+    return {
+        context,
+        get(key) {
+            return storage.getItem(key) ?? undefined;
+        },
+        set(key, value) {
+            storage.setItem(key, value);
+        },
+    };
+}
+function asConst() {
+    return (source) => source;
+}
+const stores = asConst()({
+    local: createStore(localStorage),
+    session: createStore(sessionStorage),
+});
+
+;// ./src/functions/shopifyCookie.ts
+/**
+ * Shopify Cookie Integration
+ * Creates the _sirius_track cookie that Shopify checkout can read
+ * This enables cross-domain tracking from landing page -> checkout
+ */
+
+/**
+ * Creates Shopify-compatible cookie for checkout tracking
+ * Cookie format: utm_source=value|utm_medium=value|utm_campaign=value
+ */
+function createShopifyCookie(config) {
+    const { token, domain, utmParam = 'utm_source' } = config;
+    // Get leadId from localStorage
+    const storageKey = `XTRACKY_LEAD_ID_${token}`;
+    const store = stores.local.context(storageKey);
+    const leadId = store.get();
+    if (!leadId) {
+        console.log('[Shopify Cookie] No leadId found in localStorage');
+        return;
+    }
+    // Parse URL parameters
+    const url = new URL(window.location.href);
+    const utmParams = {
+        src: url.searchParams.get('src') || '',
+        utm_source: leadId, // Use leadId from storage
+        utm_medium: url.searchParams.get('utm_medium') || '',
+        utm_campaign: url.searchParams.get('utm_campaign') || '',
+        utm_term: url.searchParams.get('utm_term') || '',
+        utm_content: url.searchParams.get('utm_content') || '',
+    };
+    // Build cookie value
+    const cookieValue = Object.keys(utmParams)
+        .filter((key) => utmParams[key])
+        .map((key) => `${key}=${utmParams[key]}`)
+        .join('|');
+    if (!cookieValue) {
+        console.log('[Shopify Cookie] No UTM params to save');
+        return;
+    }
+    const cookieName = '_sirius_track';
+    const expiryDate = new Date();
+    expiryDate.setMonth(expiryDate.getMonth() + 12); // 1 year expiry
+    // Extract root domain
+    const hostname = domain || window.location.hostname;
+    const cookieDomain = extractRootDomain(hostname);
+    console.log('[Shopify Cookie] Creating cookie', {
+        domain: cookieDomain,
+        cookieValue,
+        expiryDate: expiryDate.toUTCString()
+    });
+    // Set cookie
+    document.cookie = `${cookieName}=${cookieValue};domain=.${cookieDomain};path=/;expires=${expiryDate.toUTCString()};SameSite=Lax`;
+}
+/**
+ * Extracts root domain from hostname
+ * Examples:
+ * - shop.example.com -> example.com
+ * - www.shop.com.br -> shop.com.br
+ * - example.com -> example.com
+ */
+function extractRootDomain(hostname) {
+    const parts = hostname.split('.');
+    if (parts.length >= 3) {
+        const tld = parts.pop();
+        let domainName = parts.pop();
+        // Handle Brazilian domains (.com.br, .net.br, etc)
+        if (tld === 'br') {
+            domainName = parts.pop() + '.' + domainName;
+        }
+        return domainName + '.' + tld;
+    }
+    else {
+        // Handle simple domain.tld
+        const tld = parts.pop();
+        const domainName = parts.pop();
+        return domainName + '.' + tld;
+    }
+}
+/**
+ * Auto-initialize Shopify cookie creation on page load
+ * This watches for URL changes and recreates the cookie
+ */
+function initShopifyCookieSync(config) {
+    // Create cookie on initial load
+    createShopifyCookie(config);
+    // Recreate cookie when leadId changes in localStorage
+    window.addEventListener('storage', (event) => {
+        const storageKey = `XTRACKY_LEAD_ID_${config.token}`;
+        if (event.key === storageKey && event.newValue) {
+            console.log('[Shopify Cookie] LeadId changed, updating cookie');
+            createShopifyCookie(config);
+        }
+    });
+    // Watch for URL changes and update cookie
+    // This handles SPA navigation
+    const originalPushState = history.pushState;
+    const originalReplaceState = history.replaceState;
+    history.pushState = function (...args) {
+        originalPushState.apply(this, args);
+        createShopifyCookie(config);
+    };
+    history.replaceState = function (...args) {
+        originalReplaceState.apply(this, args);
+        createShopifyCookie(config);
+    };
+    window.addEventListener('popstate', () => {
+        createShopifyCookie(config);
+    });
+}
+
+;// ./src/functions/initUTMHandler.ts
+
+
+
+ // Import the navigation types
+
+
+function initUTMHandler(hardCodedConfig) {
+    // Capture script reference IMMEDIATELY during synchronous execution
+    // document.currentScript is only available during script execution, not in callbacks
+    const capturedScript = document.currentScript;
+    const config = {
+        'token': '',
+        'clickIdParams': ['click_id', 'ttclid', 'fbclid', 'gclid'], // Support Kwai, TikTok, Facebook, Google
+        'stepId': 'initial',
+        'currentUrl': new URL(window.location.href),
+        'fingerPrintId': undefined,
+        'apiEndpoint': 'https://api.xtracky.com/api/browser/view',
+    };
+    const UTM_SOURCE_PARAM = 'utm_source';
+    const SCK_PARAM = 'sck';
+    function getCurrentScript() {
+        return capturedScript;
+    }
+    function getDataToken() {
+        return capturedScript?.getAttribute("data-token");
+    }
+    function getLeadIdStorageKey() {
+        return `XTRACKY_LEAD_ID_${config.token}`;
+    }
+    function initializeFromScript() {
+        if (capturedScript) {
+            Object.assign(config, {
+                token: getDataToken() || '',
+                stepId: capturedScript.getAttribute("data-step-id") || 'initial',
+                currentUrl: new URL(window.location.href),
+            });
+        }
+    }
+    function getCookie(name) {
+        const nameEQ = name + "=";
+        const ca = document.cookie.split(';');
+        for (let i = 0; i < ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) === ' ')
+                c = c.substring(1, c.length);
+            if (c.indexOf(nameEQ) === 0)
+                return c.substring(nameEQ.length, c.length);
+        }
+        return null;
+    }
+    function getUrlParameters() {
+        // Returns the URLSearchParams converted to an object
+        const params = Object.fromEntries(new URLSearchParams(window.location.search));
+        // If this is a Facebook click (has fbclid), add _fbp cookie if it exists
+        if (params['fbclid']) {
+            const fbp = getCookie('_fbp');
+            if (fbp) {
+                params['_fbp'] = fbp;
+            }
+        }
+        return params;
+    }
+    function detectClickId(urlParams) {
+        // Check if any of the supported click ID parameters exist
+        for (const clickIdParam of config.clickIdParams) {
+            if (urlParams[clickIdParam]) {
+                return urlParams[clickIdParam];
+            }
+        }
+        return null;
+    }
+    function updateUrlWithLeadId(leadId) {
+        // Preserve existing query parameters and update/set utm_source and sck
+        const newUrl = new URL(window.location.href);
+        // Get existing URLSearchParams to preserve all current query parameters
+        const searchParams = new URLSearchParams(newUrl.search);
+        // Set or update utm_source and sck parameters
+        searchParams.set(UTM_SOURCE_PARAM, leadId);
+        searchParams.set(SCK_PARAM, leadId);
+        newUrl.search = searchParams.toString();
+        window.history.replaceState({}, '', newUrl.toString());
+        config.currentUrl = newUrl;
+    }
+    function updateAllLinksWithLeadId(leadId) {
+        const links = document.querySelectorAll('a');
+        links.forEach(link => {
+            if (!link.href || link.href.startsWith('#') || link.href.startsWith('javascript:')) {
+                return;
+            }
+            try {
+                const url = new URL(link.href);
+                // Update ALL links (internal and external) with utm_source and sck
+                url.searchParams.set(UTM_SOURCE_PARAM, leadId);
+                url.searchParams.set(SCK_PARAM, leadId);
+                link.href = url.href;
+            }
+            catch (e) {
+                // Invalid URL, skip
+            }
+        });
+    }
+    async function dispatch(data) {
+        if (hasPrevious(data)) {
+            return null;
+        }
+        return run();
+        function hasPrevious(data) {
+            const PREVIOUS_STORAGE_KEY = 'PREVIOUS_PAGE_VIEW';
+            const list = JSON.parse(sessionStorage.getItem(PREVIOUS_STORAGE_KEY) ?? '[]');
+            const previous = new Set(list);
+            const current = JSON.stringify(data);
+            if (previous.has(current))
+                return true;
+            previous.add(current);
+            sessionStorage.setItem(PREVIOUS_STORAGE_KEY, JSON.stringify([...previous.values()]));
+            return false;
+        }
+        async function run() {
+            const endpoint = config.apiEndpoint;
+            try {
+                console.log('VIEW', { data, endpoint });
+                const response = await fetch(endpoint, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(data),
+                    signal: AbortSignal.timeout(10000),
+                    keepalive: true
+                });
+                const result = await response.json();
+                console.log('VIEW Response', result);
+                if (result.success && result.leadId) {
+                    return result.leadId;
+                }
+                return null;
+            }
+            catch (error) {
+                console.warn('Erro ao enviar view:', error);
+                return null;
+            }
+        }
+    }
+    // In-memory flag to prevent duplicate dispatches (synchronous check)
+    let initiateCheckoutSent = false;
+    function dispatchInitiateCheckout() {
+        // Synchronous check - blocks immediately
+        if (initiateCheckoutSent) {
+            console.log('[INITIATE_CHECKOUT] Already sent, skipping');
+            return;
+        }
+        initiateCheckoutSent = true;
+        const store = stores.local.context(getLeadIdStorageKey());
+        const leadId = store.get();
+        if (!leadId) {
+            console.warn('[INITIATE_CHECKOUT] No leadId found, skipping');
+            initiateCheckoutSent = false; // Reset if no leadId
+            return;
+        }
+        // Replace only the last '/view' in the path (not 'view' in domain like api.xtracky.com)
+        const endpoint = config.apiEndpoint.replace(/\/view$/, '/initiate-checkout');
+        const payload = JSON.stringify({
+            product_id: config.token,
+            utm_source: leadId,
+            href: window.location.href,
+        });
+        console.log('[INITIATE_CHECKOUT] Sending', { product_id: config.token, utm_source: leadId });
+        // Use sendBeacon for reliable delivery during page navigation
+        // sendBeacon is designed to send data even when the page is unloading
+        if (navigator.sendBeacon) {
+            const blob = new Blob([payload], { type: 'text/plain' });
+            const sent = navigator.sendBeacon(endpoint, blob);
+            console.log('[INITIATE_CHECKOUT] Sent via sendBeacon:', sent);
+        }
+        else {
+            // Fallback for older browsers (very rare, <4% of users)
+            fetch(endpoint, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: payload,
+                keepalive: true
+            }).catch(error => console.warn('[INITIATE_CHECKOUT] Error:', error));
+        }
+    }
+    function initCheckoutListeners() {
+        // Helper to add listener to an element (only once)
+        function addCheckoutListener(element) {
+            if (element.dataset.xtrackyCheckoutListenerAdded)
+                return;
+            element.dataset.xtrackyCheckoutListenerAdded = 'true';
+            element.addEventListener('click', dispatchInitiateCheckout);
+        }
+        // Find all elements with data-xtracky-checkout attribute
+        const checkoutElements = document.querySelectorAll('[data-xtracky-checkout]');
+        checkoutElements.forEach(addCheckoutListener);
+        // Watch for dynamically added checkout elements
+        mutationWatch('[data-xtracky-checkout]', elements => {
+            elements.forEach(addCheckoutListener);
+        });
+    }
+    // Store rules globally for path checking at click time
+    let advancedTrackingRules = [];
+    function getAdvancedTrackingConfig() {
+        const script = getCurrentScript();
+        const base64Config = script?.getAttribute('data-advanced-tracking');
+        console.log('[ADVANCED_TRACKING] Script element:', script);
+        console.log('[ADVANCED_TRACKING] data-advanced-tracking:', base64Config);
+        if (!base64Config)
+            return null;
+        try {
+            const jsonString = atob(base64Config);
+            const rules = JSON.parse(jsonString);
+            console.log('[ADVANCED_TRACKING] Config decoded:', rules);
+            return rules;
+        }
+        catch (error) {
+            console.warn('[ADVANCED_TRACKING] Failed to decode config:', error);
+            return null;
+        }
+    }
+    function doesPathMatch(rulePath, currentPath) {
+        // Exact match
+        if (rulePath === currentPath)
+            return true;
+        // Support for trailing slash variations
+        if (rulePath === currentPath + '/' || rulePath + '/' === currentPath)
+            return true;
+        // Support for wildcard paths (e.g., /checkout/*)
+        if (rulePath.endsWith('*')) {
+            const basePath = rulePath.slice(0, -1);
+            return currentPath.startsWith(basePath);
+        }
+        return false;
+    }
+    function initAdvancedTracking() {
+        const rules = getAdvancedTrackingConfig();
+        if (!rules || rules.length === 0)
+            return;
+        // Store rules for path checking at click time
+        advancedTrackingRules = rules;
+        console.log('[ADVANCED_TRACKING] Initialized with', rules.length, 'rules');
+        // Group rules by selector to avoid duplicate watchers
+        const selectorRulesMap = new Map();
+        rules.forEach(rule => {
+            const existing = selectorRulesMap.get(rule.s) || [];
+            existing.push(rule);
+            selectorRulesMap.set(rule.s, existing);
+        });
+        // Set up watchers for ALL selectors (SPA-friendly)
+        // mutationWatch already handles initial scan + dynamic elements
+        selectorRulesMap.forEach((rulesForSelector, selector) => {
+            try {
+                mutationWatch(selector, elements => {
+                    elements.forEach(el => addAdvancedListener(el, rulesForSelector));
+                });
+                console.log(`[ADVANCED_TRACKING] Watching selector: ${selector} (${rulesForSelector.length} rules)`);
+            }
+            catch (error) {
+                console.warn(`[ADVANCED_TRACKING] Invalid selector: ${selector}`, error);
+            }
+        });
+    }
+    function addAdvancedListener(element, rules) {
+        // Use a unique key based on all event types for this element
+        const eventTypes = [...new Set(rules.map(r => r.e))].sort().join('_');
+        const listenerKey = `xtrackyAdvanced_${eventTypes}`;
+        if (element.dataset[listenerKey])
+            return;
+        element.dataset[listenerKey] = 'true';
+        element.addEventListener('click', () => {
+            const currentPath = window.location.pathname;
+            // Find rules that match the CURRENT path (checked at click time, not init time)
+            const matchingRules = rules.filter(rule => doesPathMatch(rule.p, currentPath));
+            if (matchingRules.length === 0) {
+                console.log(`[ADVANCED_TRACKING] Click ignored - path "${currentPath}" doesn't match any rules`);
+                return;
+            }
+            // Dispatch events for all matching rules
+            matchingRules.forEach(rule => {
+                console.log(`[ADVANCED_TRACKING] Click on "${rule.s}" at "${currentPath}" - Event: ${rule.e}`);
+                switch (rule.e) {
+                    case 'IC': // InitiateCheckout
+                        dispatchInitiateCheckout();
+                        break;
+                    // Future event types:
+                    // case 'AC': dispatchAddToCart(); break;
+                    // case 'VC': dispatchViewContent(); break;
+                    // case 'PU': dispatchPurchase(); break;
+                    default:
+                        console.warn(`[ADVANCED_TRACKING] Unknown event type: ${rule.e}`);
+                }
+            });
+        });
+    }
+    async function handleUtmParameters() {
+        const store = stores.local.context(getLeadIdStorageKey());
+        const urlParams = getUrlParameters();
+        // Check if we have a NEW click ID from any platform (PRIORITY #1)
+        const clickId = detectClickId(urlParams);
+        console.log({ urlParams, clickId, detectedPlatform: clickId ? 'yes' : 'no' });
+        // Check if we already have a stored leadId
+        const storedLeadId = store.get();
+        // If we have a NEW click ID, process it ONLY if we don't have a stored leadId
+        if (clickId && !storedLeadId) {
+            // Convert URL params to URLSearchParams string format
+            const urlParamsString = new URLSearchParams(urlParams).toString();
+            // Build the dispatch data with ALL URL params as URLSearchParams string
+            const dispatchData = {
+                step_id: config.stepId,
+                href: config.currentUrl.href,
+                product_id: config.token,
+                finger_print_id: config.fingerPrintId ?? await initFingerPrint.promise.promise,
+                url_params: urlParamsString, // Send ALL URL parameters as string
+            };
+            // Send to backend and get leadId
+            const leadId = await dispatch(dispatchData);
+            if (leadId) {
+                console.log('Received NEW leadId from backend', leadId);
+                // Save to localStorage (overwrite previous)
+                store.set(leadId);
+                // Update URL to only have utm_source=leadId
+                updateUrlWithLeadId(leadId);
+                // Update all links on the page
+                updateAllLinksWithLeadId(leadId);
+                // Create Shopify cookie for cross-domain tracking
+                createShopifyCookie({ token: config.token });
+            }
+            return;
+        }
+        // If we have click ID but already have stored leadId, just use the stored one
+        if (clickId && storedLeadId) {
+            console.log('Click ID detected but using existing leadId from localStorage', storedLeadId);
+            updateUrlWithLeadId(storedLeadId);
+            updateAllLinksWithLeadId(storedLeadId);
+            createShopifyCookie({ token: config.token });
+            return;
+        }
+        // No new click ID, check if we have stored leadId or utm_source in URL
+        const utmSourceInUrl = urlParams[UTM_SOURCE_PARAM];
+        // If we have utm_source in URL and it matches stored, just propagate it
+        if (utmSourceInUrl && storedLeadId && utmSourceInUrl === storedLeadId) {
+            console.log('Using existing leadId from URL', utmSourceInUrl);
+            updateAllLinksWithLeadId(storedLeadId);
+            createShopifyCookie({ token: config.token });
+            return;
+        }
+        // If we have stored leadId but no utm_source in URL, restore it
+        if (storedLeadId && !utmSourceInUrl) {
+            console.log('Restoring leadId from localStorage', storedLeadId);
+            updateUrlWithLeadId(storedLeadId);
+            updateAllLinksWithLeadId(storedLeadId);
+            createShopifyCookie({ token: config.token });
+            return;
+        }
+        // No click ID, no stored leadId, no utm_source - nothing to do
+        console.log('No tracking data available');
+    }
+    async function dynamicImport(name) {
+        return new Function(`return import("${name}")`)();
+    }
+    function withResolvers() {
+        const config = {};
+        config.promise = new Promise((resolve, reject) => {
+            Object.assign(config, { resolve, reject });
+        });
+        return config;
+    }
+    initFingerPrint.promise = withResolvers();
+    async function initFingerPrint() {
+        try {
+            config.fingerPrintId = await getFingerPrintId();
+            initFingerPrint.promise.resolve(config.fingerPrintId);
+        }
+        catch (error) {
+            console.warn('[XTRACKY] FingerprintJS initialization failed (CORS or network error). Script continues to work normally without fingerprinting.', error);
+            // Resolve with undefined to prevent blocking the algorithm
+            initFingerPrint.promise.resolve(undefined);
+        }
+    }
+    async function getFingerPrintId() {
+        const FingerprintJS = await dynamicImport('https://cdn.skypack.dev/@fingerprintjs/fingerprintjs@4.0.1').then(res => res.default);
+        const fingerPrint = await FingerprintJS.load().then((res) => res.get());
+        const id = fingerPrint.visitorId;
+        return id;
+    }
+    onMount();
+    async function onMount() {
+        initializeFromScript();
+        initFingerPrint();
+        onLoad(handleUtmParameters);
+        onLoad(initCheckoutListeners);
+        onLoad(initAdvancedTracking);
+        onLoad(maybeLoadConfigMode);
+        initWatch();
+    }
+    // Carrega o script de configuração visual apenas quando necessário
+    // Isso evita carregar ~17KB de código que só é usado durante setup
+    function maybeLoadConfigMode() {
+        const url = new URL(window.location.href);
+        const configToken = url.searchParams.get('xtracky_config');
+        if (!configToken)
+            return; // 99% dos casos - não carrega nada
+        console.log('[UTM Handler] Modo configuração detectado, carregando tracking-config...');
+        const script = document.createElement('script');
+        script.src = 'https://cdn.xtracky.com/scripts/tracking-config.js';
+        script.async = true;
+        script.onload = () => console.log('[UTM Handler] tracking-config.js carregado com sucesso');
+        script.onerror = () => console.warn('[UTM Handler] Falha ao carregar tracking-config.js');
+        document.head.appendChild(script);
+    }
+    function initWatch() {
+        if (hardCodedConfig.shouldEnableInterception)
+            initNavigationInterception();
+        // Watch for iframes and pass through utm_source and sck
+        mutationWatch('iframe', iframes => iframes.forEach(iframe => {
+            if (iframe.src) {
+                const store = stores.local.context(getLeadIdStorageKey());
+                const leadId = store.get();
+                if (leadId) {
+                    const url = new URL(iframe.src);
+                    url.searchParams.set(UTM_SOURCE_PARAM, leadId);
+                    url.searchParams.set(SCK_PARAM, leadId);
+                    iframe.src = url.href;
+                }
+            }
+        }));
+        // Watch for new links added dynamically
+        mutationWatch('a', () => {
+            const store = stores.local.context(getLeadIdStorageKey());
+            const leadId = store.get();
+            if (leadId) {
+                updateAllLinksWithLeadId(leadId);
+            }
+        });
+    }
+    function isIframe() {
+        try {
+            return window.self !== window.top;
+        }
+        catch (e) {
+            return true;
+        }
+    }
+    function initNavigationInterception() {
+        interceptWindowOpen();
+        startRun();
+        function interceptWindowOpen() {
+            if (!isIframe())
+                return;
+            const currentWindow = window;
+            const previousOpen = currentWindow.open;
+            window.open = function open(input, target, ...others) {
+                if (isIframe() && target === '_top') {
+                    const url = safeFactoryURL(input);
+                    if (url)
+                        return previousOpen.call(this, getURL(url.href), target, ...others);
+                }
+                return previousOpen.apply(this, arguments);
+            };
+        }
+        function isSafari() {
+            return /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+        }
+        function startRun() {
+            // Safari's polyfill doesn't support window.location.href redirects
+            // This breaks Shopify themes and Yampi checkout that use location.href
+            if (isSafari()) {
+                console.log('[Navigation Interception] Safari detected - skipping (polyfill incompatible)');
+                return;
+            }
+            if (!window.navigation) {
+                console.log('[Navigation Interception] No native Navigation API - skipping');
+                return;
+            }
+            console.log('[Navigation Interception] Native support detected - enabled');
+            run();
+            function run() {
+                let lastURL;
+                window.navigation?.addEventListener("navigate", (event) => {
+                    const navigation = window.navigation;
+                    if (!event?.destination?.url)
+                        return;
+                    safeTry(() => {
+                        event.destination.url = event?.destination?.url?.href ?? event?.destination?.url;
+                    });
+                    if (!shouldIntercept(event))
+                        return;
+                    // For non-form navigations, proceed with URL modification
+                    event.preventDefault();
+                    redirect(event, getURL(event.destination.url));
+                    function redirect(event, url) {
+                        lastURL = url;
+                        if (event.formData && (event.sourceElement instanceof HTMLFormElement)) {
+                            const actionUrl = new URL(event.sourceElement.action);
+                            const currentLeadId = stores.local.context(getLeadIdStorageKey()).get();
+                            if (currentLeadId) {
+                                actionUrl.searchParams.set(UTM_SOURCE_PARAM, currentLeadId);
+                                actionUrl.searchParams.set(SCK_PARAM, currentLeadId);
+                                event.sourceElement.action = actionUrl.href;
+                                event.sourceElement?.submit();
+                            }
+                            return;
+                        }
+                        const shouldRefresh = !event.destination.sameDocument;
+                        if (shouldRefresh)
+                            return navigation.navigate(url, { history: event.navigationType === 'push' ? 'push' : event.navigationType === 'replace' ? 'replace' : 'auto' });
+                        history.pushState({}, '', url);
+                    }
+                    function shouldIntercept(event) {
+                        return lastURL !== event.destination.url;
+                    }
+                });
+            }
+        }
+        function getRelevantQuerySearch() {
+            const searchParams = new URLSearchParams(window.location.search);
+            return omitNullish(Object.fromEntries([UTM_SOURCE_PARAM, SCK_PARAM].map(id => [id, getQuerySearchParam(id, searchParams)])));
+        }
+        function getQuerySearchParam(id, searchParams = new URLSearchParams(window.location.search)) {
+            return searchParams.get(id) ?? undefined;
+        }
+        function omitNullish(source) {
+            const content = {};
+            for (const name in source)
+                if (source[name] != null)
+                    content[name] = source[name];
+            return content;
+        }
+        function getURL(to) {
+            return mergeURLSearchs({ url: to, search: [new URLSearchParams(getRelevantQuerySearch()), to] });
+            function mergeURLSearchs({ url, search }) {
+                const main = new URL(url);
+                const searchConfig = omitNullish(Object.assign({}, ...search.map(getSearchParams).map(Object.fromEntries)));
+                main.search = new URLSearchParams(searchConfig).toString();
+                return main.href;
+                function getSearchParams(url) {
+                    if (url instanceof URLSearchParams)
+                        return url;
+                    if (url instanceof URL)
+                        return url.searchParams;
+                    return safeFactoryURL(url)?.searchParams ?? new URLSearchParams(url);
+                }
+            }
+        }
+        function safeFactoryURL(url) {
+            try {
+                if (url instanceof URL)
+                    return url;
+                return new URL(url);
+            }
+            catch {
+                return;
+            }
+        }
+        function polyfill() {
+            if (!window.navigation) {
+                // Dynamically load the polyfill only if needed
+                const polyfillScript = document.createElement('script');
+                polyfillScript.type = 'module';
+                polyfillScript.textContent = `
+                    // Import the polyfill from Skypack
+                    import * as navigationPolyfill from 'https://cdn.skypack.dev/navigation-api-polyfill';
+                    window.dispatchEvent(new Event('navigationReady'));
+                `;
+                document.head.appendChild(polyfillScript);
+            }
+            else {
+                // Navigation API is natively supported, dispatch ready event immediately
+                window.dispatchEvent(new Event('navigationReady'));
+            }
+        }
+    }
+}
+
+;// ./src/export/utm-handler.ts
+
+// Initialize the UTM handler for multi-platform tracking
+// Supports: Kwai (click_id), TikTok (ttclid), Facebook (fbclid), Google (gclid)
+initUTMHandler({
+    shouldEnableInterception: false,
+});
+
+/******/ })()
+;
