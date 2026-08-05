@@ -266,12 +266,10 @@ function initUTMHandler(hardCodedConfig) {
     function getUrlParameters() {
         // Returns the URLSearchParams converted to an object
         const params = Object.fromEntries(new URLSearchParams(window.location.search));
-        // If this is a Facebook click (has fbclid), add _fbp cookie if it exists
-        if (params['fbclid']) {
-            const fbp = getCookie('_fbp');
-            if (fbp) {
-                params['_fbp'] = fbp;
-            }
+        // Always capture _fbp cookie if it exists (improves Facebook match quality)
+        const fbp = getCookie('_fbp');
+        if (fbp) {
+            params['_fbp'] = fbp;
         }
         return params;
     }
@@ -357,36 +355,44 @@ function initUTMHandler(hardCodedConfig) {
             }
         }
     }
-    // In-memory flag to prevent duplicate dispatches (synchronous check)
-    let initiateCheckoutSent = false;
-    function dispatchInitiateCheckout() {
+    // In-memory flags to prevent duplicate dispatches (synchronous check).
+    // One flag per event tag ("IC", "AC", ...); if not present the event was never sent.
+    const sentEventTags = {};
+    /**
+     * Generic dispatcher used by both the `data-xtracky-checkout` legacy attribute and the
+     * advanced-tracking rules. Sends the event exactly once per page load (per tag).
+     *
+     * @param tag         Short label used for logs and dedupe (e.g. "INITIATE_CHECKOUT").
+     * @param endpointPath Path segment that replaces `/view` at the end of `apiEndpoint`.
+     */
+    function dispatchBrowserEvent(tag, endpointPath) {
         // Synchronous check - blocks immediately
-        if (initiateCheckoutSent) {
-            console.log('[INITIATE_CHECKOUT] Already sent, skipping');
+        if (sentEventTags[tag]) {
+            console.log(`[${tag}] Already sent, skipping`);
             return;
         }
-        initiateCheckoutSent = true;
+        sentEventTags[tag] = true;
         const store = stores.local.context(getLeadIdStorageKey());
         const leadId = store.get();
         if (!leadId) {
-            console.warn('[INITIATE_CHECKOUT] No leadId found, skipping');
-            initiateCheckoutSent = false; // Reset if no leadId
+            console.warn(`[${tag}] No leadId found, skipping`);
+            sentEventTags[tag] = false; // Reset if no leadId
             return;
         }
         // Replace only the last '/view' in the path (not 'view' in domain like api.xtracky.com)
-        const endpoint = config.apiEndpoint.replace(/\/view$/, '/initiate-checkout');
+        const endpoint = config.apiEndpoint.replace(/\/view$/, `/${endpointPath}`);
         const payload = JSON.stringify({
             product_id: config.token,
             utm_source: leadId,
             href: window.location.href,
         });
-        console.log('[INITIATE_CHECKOUT] Sending', { product_id: config.token, utm_source: leadId });
+        console.log(`[${tag}] Sending`, { product_id: config.token, utm_source: leadId });
         // Use sendBeacon for reliable delivery during page navigation
         // sendBeacon is designed to send data even when the page is unloading
         if (navigator.sendBeacon) {
             const blob = new Blob([payload], { type: 'text/plain' });
             const sent = navigator.sendBeacon(endpoint, blob);
-            console.log('[INITIATE_CHECKOUT] Sent via sendBeacon:', sent);
+            console.log(`[${tag}] Sent via sendBeacon:`, sent);
         }
         else {
             // Fallback for older browsers (very rare, <4% of users)
@@ -395,8 +401,20 @@ function initUTMHandler(hardCodedConfig) {
                 headers: { 'Content-Type': 'application/json' },
                 body: payload,
                 keepalive: true
-            }).catch(error => console.warn('[INITIATE_CHECKOUT] Error:', error));
+            }).catch(error => console.warn(`[${tag}] Error:`, error));
         }
+    }
+    function dispatchInitiateCheckout() {
+        dispatchBrowserEvent('INITIATE_CHECKOUT', 'initiate-checkout');
+    }
+    function dispatchAddToCart() {
+        dispatchBrowserEvent('ADD_TO_CART', 'add-to-cart');
+    }
+    function dispatchViewContent() {
+        dispatchBrowserEvent('VIEW_CONTENT', 'view-content');
+    }
+    function dispatchAddPaymentInfo() {
+        dispatchBrowserEvent('ADD_PAYMENT_INFO', 'add-payment-info');
     }
     function initCheckoutListeners() {
         // Helper to add listener to an element (only once)
@@ -498,10 +516,15 @@ function initUTMHandler(hardCodedConfig) {
                     case 'IC': // InitiateCheckout
                         dispatchInitiateCheckout();
                         break;
-                    // Future event types:
-                    // case 'AC': dispatchAddToCart(); break;
-                    // case 'VC': dispatchViewContent(); break;
-                    // case 'PU': dispatchPurchase(); break;
+                    case 'AC': // AddToCart
+                        dispatchAddToCart();
+                        break;
+                    case 'VC': // ViewContent
+                        dispatchViewContent();
+                        break;
+                    case 'API': // AddPaymentInfo
+                        dispatchAddPaymentInfo();
+                        break;
                     default:
                         console.warn(`[ADVANCED_TRACKING] Unknown event type: ${rule.e}`);
                 }
