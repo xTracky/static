@@ -294,17 +294,40 @@ function initUTMHandler(hardCodedConfig) {
         window.history.replaceState({}, '', newUrl.toString());
         config.currentUrl = newUrl;
     }
+    // Telegram deep link só respeita `?start=<param>`. Query params comuns
+    // (`utm_source`, `sck`, `fbclid`, etc) são descartados pelo cliente do
+    // Telegram — ou seja, se colocarmos `?utm_source=X` num link t.me/, o bot
+    // nunca vê. A regra do start param: [A-Za-z0-9_-], máx 64 chars.
+    // https://core.telegram.org/bots/features#deep-linking
+    const TELEGRAM_START_MAX = 64;
+    function isTelegramLink(url) {
+        return (url.hostname === 't.me' ||
+            url.hostname === 'telegram.me' ||
+            url.protocol === 'tg:');
+    }
+    function sanitizeStartParam(id) {
+        return id.replace(/[^A-Za-z0-9_-]/g, '').slice(0, TELEGRAM_START_MAX);
+    }
     function updateAllLinksWithLeadId(leadId) {
         const links = document.querySelectorAll('a');
+        const startId = sanitizeStartParam(leadId);
         links.forEach(link => {
             if (!link.href || link.href.startsWith('#') || link.href.startsWith('javascript:')) {
                 return;
             }
             try {
                 const url = new URL(link.href);
-                // Update ALL links (internal and external) with utm_source and sck
-                url.searchParams.set(UTM_SOURCE_PARAM, leadId);
-                url.searchParams.set(SCK_PARAM, leadId);
+                if (isTelegramLink(url)) {
+                    // Só injeta start se o leadId sobreviveu à sanitização.
+                    // Não polui com utm_source/sck (Telegram descarta e vira ruído).
+                    if (startId)
+                        url.searchParams.set('start', startId);
+                }
+                else {
+                    // Update ALL links (internal and external) with utm_source and sck
+                    url.searchParams.set(UTM_SOURCE_PARAM, leadId);
+                    url.searchParams.set(SCK_PARAM, leadId);
+                }
                 link.href = url.href;
             }
             catch (e) {
