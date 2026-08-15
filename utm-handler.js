@@ -562,6 +562,21 @@ function initUTMHandler(hardCodedConfig) {
         console.log({ urlParams, clickId, detectedPlatform: clickId ? 'yes' : 'no' });
         // Check if we already have a stored leadId
         const storedLeadId = store.get();
+        // FIX (áudio Lucas): se a URL já tem utm_source válido do xTracky
+        // (formato XX-*), adota esse leadId em vez de gerar um novo — cenário
+        // clássico: user vem do cloaker que já colocou ?utm_source=KW-... na
+        // landing. Sem esse check, backend chamava dispatch e retornava um
+        // KW-... NOVO, quebrando continuidade cloaker → landing → bot.
+        const utmSourceRaw = urlParams[UTM_SOURCE_PARAM] || urlParams[SCK_PARAM] || '';
+        const upstreamLeadIdMatch = /^[A-Z]{2}-\d{13}-[a-z0-9]{13}$/.test(utmSourceRaw);
+        if (upstreamLeadIdMatch && !storedLeadId) {
+            console.log('Adopting upstream leadId from utm_source/sck (cloaker chain)', utmSourceRaw);
+            store.set(utmSourceRaw);
+            updateUrlWithLeadId(utmSourceRaw);
+            updateAllLinksWithLeadId(utmSourceRaw);
+            createShopifyCookie({ token: config.token });
+            return;
+        }
         // If we have a NEW click ID, process it ONLY if we don't have a stored leadId
         if (clickId && !storedLeadId) {
             // Convert URL params to URLSearchParams string format
