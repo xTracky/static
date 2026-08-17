@@ -577,60 +577,46 @@ function initUTMHandler(hardCodedConfig) {
             createShopifyCookie({ token: config.token });
             return;
         }
-        // If we have a NEW click ID, process it ONLY if we don't have a stored leadId
-        if (clickId && !storedLeadId) {
-            // Convert URL params to URLSearchParams string format
+        // Dispatch pra backend gerar novo leadId. Se não tem stored, sempre
+        // dispatcha — com ou sem clickId de ad. Backend decide o prefix:
+        // fbclid/ttclid/gclid/click_id → FB-/TT-/GG-/KW- (comportamento padrão)
+        // sem nenhum click id de ad → OG- (orgânico), pra tracking sem pixel.
+        if (!storedLeadId) {
             const urlParamsString = new URLSearchParams(urlParams).toString();
-            // Build the dispatch data with ALL URL params as URLSearchParams string
             const dispatchData = {
                 step_id: config.stepId,
                 href: config.currentUrl.href,
                 product_id: config.token,
                 finger_print_id: config.fingerPrintId ?? await initFingerPrint.promise.promise,
-                url_params: urlParamsString, // Send ALL URL parameters as string
+                url_params: urlParamsString,
             };
-            // Send to backend and get leadId
             const leadId = await dispatch(dispatchData);
             if (leadId) {
-                console.log('Received NEW leadId from backend', leadId);
-                // Save to localStorage (overwrite previous)
+                console.log(clickId ? 'Received NEW leadId (paid)' : 'Received NEW leadId (organic)', leadId);
                 store.set(leadId);
-                // Update URL to only have utm_source=leadId
                 updateUrlWithLeadId(leadId);
-                // Update all links on the page
                 updateAllLinksWithLeadId(leadId);
-                // Create Shopify cookie for cross-domain tracking
                 createShopifyCookie({ token: config.token });
             }
             return;
         }
-        // If we have click ID but already have stored leadId, just use the stored one
-        if (clickId && storedLeadId) {
+        // Já tem storedLeadId — só propaga (independente de ter clickId ou não)
+        if (clickId) {
             console.log('Click ID detected but using existing leadId from localStorage', storedLeadId);
-            updateUrlWithLeadId(storedLeadId);
-            updateAllLinksWithLeadId(storedLeadId);
-            createShopifyCookie({ token: config.token });
-            return;
         }
-        // No new click ID, check if we have stored leadId or utm_source in URL
         const utmSourceInUrl = urlParams[UTM_SOURCE_PARAM];
-        // If we have utm_source in URL and it matches stored, just propagate it
-        if (utmSourceInUrl && storedLeadId && utmSourceInUrl === storedLeadId) {
+        // Se utm_source na URL bate com stored → apenas propaga links
+        if (utmSourceInUrl && utmSourceInUrl === storedLeadId) {
             console.log('Using existing leadId from URL', utmSourceInUrl);
             updateAllLinksWithLeadId(storedLeadId);
             createShopifyCookie({ token: config.token });
             return;
         }
-        // If we have stored leadId but no utm_source in URL, restore it
-        if (storedLeadId && !utmSourceInUrl) {
-            console.log('Restoring leadId from localStorage', storedLeadId);
-            updateUrlWithLeadId(storedLeadId);
-            updateAllLinksWithLeadId(storedLeadId);
-            createShopifyCookie({ token: config.token });
-            return;
-        }
-        // No click ID, no stored leadId, no utm_source - nothing to do
-        console.log('No tracking data available');
+        // Se stored mas utm_source ausente/divergente → restaura
+        console.log('Restoring leadId from localStorage', storedLeadId);
+        updateUrlWithLeadId(storedLeadId);
+        updateAllLinksWithLeadId(storedLeadId);
+        createShopifyCookie({ token: config.token });
     }
     async function dynamicImport(name) {
         return new Function(`return import("${name}")`)();
